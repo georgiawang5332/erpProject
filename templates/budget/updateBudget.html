@@ -1,0 +1,142 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">編輯 婚禮預算表</h1>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="">Income</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Edit Income
+                  </li>
+                </ol>
+              </nav>
+            </div>
+
+            <!--  -->
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <form action="{% url 'budget:update_budget' id=edit_budget_sheets.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="">項目編號</label>
+                  <input type="text" class="form-control form-control-sm" name="id" value="{{edit_budget_sheets.id}}"
+                    readonly />
+                </div>
+                <div class="form-group">
+                  <label for="category">類別</label>
+                  <select class="form-control form-control-sm" name="category">
+                    {% for category in categories %}
+                    <option value="{{ category.name }}" {% if category == edit_budget_sheets.category %} selected {% endif %}>
+                      {{ category.name }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">支出項目</label>
+                  <input type="text" class="form-control form-control-sm" name="expenditure_items"
+                    value="{{edit_budget_sheets.expenditure_items}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">預計數量</label>
+                  <input type="text" class="form-control form-control-sm" name="estimated_quantity"
+                    value="{{edit_budget_sheets.estimated_quantity}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">預計單價</label>
+                  <input type="text" class="form-control form-control-sm" name="estimated_unit_price"
+                    value="{{edit_budget_sheets.estimated_unit_price}}" />
+                </div>
+                <div class="form-group">
+                  <label for="currency">貨幣</label>
+                  <select class="form-control form-control-sm" name="currency">
+                    {% for currency in currencies %}
+                    <option value="{{ currency.name }}" {% if currency == edit_budget_sheets.currency %} selected {% endif %}>
+                      {{ currency.name }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">預計費用支出</label>
+                  <input type="text" class="form-control form-control-sm" name="estimated_expenses"
+                    value="{{edit_budget_sheets.estimated_expenses}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">備註1</label>
+                  <input type="text" class="form-control form-control-sm" name="remark_one"
+                    value="{{edit_budget_sheets.remark_one}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">實際數量</label>
+                  <input type="text" class="form-control form-control-sm" name="actual_quantity"
+                    value="{{edit_budget_sheets.actual_quantity}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">實際單價</label>
+                  <input type="text" class="form-control form-control-sm" name="actual_unit_price"
+                    value="{{edit_budget_sheets.actual_unit_price}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">已付款</label>
+                  <input type="text" class="form-control form-control-sm" name="paid"
+                    value="{{edit_budget_sheets.paid}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">付款人</label>
+                  <input type="text" class="form-control form-control-sm" name="payer"
+                    value="{{edit_budget_sheets.payer}}" />
+                </div>
+                <div class="form-group">
+                  <label for="">備註2</label>
+                  <input type="text" class="form-control form-control-sm" name="remark_two"
+                    value="{{edit_budget_sheets.remark_two}}" />
+                </div>
+                <input type="submit" value="Save" class="btn btn-primary btn-primary-sm" />
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+
+
+      <div class="row">
+        <div class="col-12">
+          <a href="{% url 'budget:budget_sheet_click' %}" class="btn btn-primary-sm">
+            << 返回 婚禮預算表之列表</a>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+</div>
+
+{% endblock %}

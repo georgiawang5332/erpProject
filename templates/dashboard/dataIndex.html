@@ -1,0 +1,124 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard儀錶板{% endblock title %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0"></h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard v2</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+
+  <section class="content">
+    <div class="row">
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fa fa-envelope-o"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Completed Events</span>
+            <span class="info-box-number">{{ total_event }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Running Events</span>
+            <span class="info-box-number">{{ running_events.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Participants</span>
+            <span class="info-box-number">13,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Stars</span>
+            <span class="info-box-number">13,139</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
+          </div>
+
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>活動標題</th>
+                  <th>描述</th>
+                  <th>開始日期</th>
+                  <th>結束日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for event in latest_events %}
+                <tr role="row" class="odd">
+                  <td class="sorting_1">{{ forloop.counter }}</td>
+                  <td>{{ event.title }}</td>
+                  <td>{{ event.start_time }}</td>
+                  <td>{{ event.end_time }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>活動標題</th>
+                  <th>描述</th>
+                  <th>開始日期</th>
+                  <th>結束日期</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+</div>
+
+
+{% endblock content %}

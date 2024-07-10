@@ -1,0 +1,50 @@
+{% load static %}
+<form method="POST" action="{% url 'invite:notattend_view' %}" id="theFormC" class="notattending-form">
+    {% csrf_token %}
+    <fieldset class="notattending">
+        <h3>可以留言給予新人祝福嗎?</h3>
+        <input name="notattending" type="radio" id="notattendingYes" value="yes"
+               class="radio-notattending--yes" style="display: none"
+               checked/>
+        <label for="notattendingYes" class="label-notattending--yes" style="display: none">Yes!</label>
+
+        <div class="is_notattending" id="notattending">
+            <h4>可惜了，無法前來但可寫下您的祝福!!!</h4>
+            <p class="subtitle">祝福新人們的一句話。</p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-pencil fa-fw fa-lg" aria-hidden="true"></i>-->
+                        <img src="{% static 'image/pencil.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="nameNo" type="text" placeholder="姓名" aria-label="Username"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-envelope fa-fw fa-lg" aria-hidden="true"></i>-->
+                        <img src="{% static 'image/address.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="emailNo" type="text" placeholder="信箱帳號" aria-label="email"
+                       aria-describedby="nameHelpBlock3">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-commenting fa-fw fa-lg" aria-hidden="true"></i>-->
+                        <img src="{% static 'image/chat.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <textarea name="msgNo" class="radio-div" placeholder="我要留言" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="send-card-button" id="theButtonC">送出留言!</button>
+                <div id="thankyou" class="thank-you"></div>
+            </div>
+        </div>
+    </fieldset>
+
+</form>

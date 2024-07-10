@@ -1,0 +1,275 @@
+{% load static %}
+<!-- 引入 Bootstrap 的 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!-- fontawesome CSS -->
+<script src="https://kit.fontawesome.com/47b9ab5ced.js" crossorigin="anonymous"></script>
+<!-- 第一個 form 人會出席+給錢 -->
+<div class="tab-pane fade show active" id="questionContent">
+  <form method="post" action="{% url 'invite:questionclick_view' %}">
+    {% csrf_token %}
+
+    <fieldset class="questionclick">
+      <legend>當然，準時出席 表單內容</legend>
+      <!-- 當然，準時出席的表單內容 -->
+
+      <p class="subtitle">☆&nbsp;會出席婚宴者，請幫我填個人資料!</p>
+      <input type="radio" name="personal-info" id="personal-info-YesID" value="yes" class="radio-personal-info--yes"
+        checked />
+      <label for="personal-info-Yes" class="label-personal-info--yes h13">個人資料一定會填妥好提交</label>
+      <div class="is_personal-info" id="personal-info">
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">
+            <i class="fa fa-pencil fa-fw fa-lg"></i>
+          </span>
+          <input name="name" type="text" class="form-control" placeholder="姓名" aria-label="Username"
+            aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">
+            <i class="fa fa-phone fa-fw fa-lg"></i>
+          </span>
+          <input name="phone" type="text" class="form-control" placeholder="連絡電話" aria-label="Phone"
+            aria-describedby="basic-addon1">
+        </div>
+
+        <p class="h12">希望以什麼方式收到喜帖? (擇一填寫)</p>
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <span class="inputicon" id="basic-addon1"><i class="fa fa-map-marker fa-fw fa-lg"></i></span>
+          </div>
+          <input name="address" type="text" class="form-control" placeholder="請輸入地址&nbsp;&nbsp;ex: 104 台北市敬業路三段5號10樓"
+            aria-label="address" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <span class="inputicon" id="basic-addon1"><i class="fa fa-envelope-o fa-fw fa-lg"
+                aria-hidden="true"></i></span>
+          </div>
+          <input name="email" type="text" class="form-control" placeholder="請輸入郵件帳號&nbsp;&nbsp;ex: abc123@gmail.com"
+            aria-label="E-mail" aria-describedby="basic-addon1">
+        </div>
+
+        <p class="h12">請問認識新人哪一位?</p>
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <span class="inputicon" id="basic-addon1">
+              <i class="fa fa-user-o fa-fw fa-lg"></i>
+            </span>
+          </div>
+
+          <div class="radio-div pl-2 w-100" style="display: flex; align-items: center;">
+            <div class="form-check form-check-inline">
+              <input name="know" value="新郎" class="form-check-input" type="radio" id="know1">
+              <label class="form-check-label" for="know1">
+                新郎</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="know" class="form-check-input" type="radio" id="know2" value="新娘">
+              <label class="form-check-label" for="know2">新娘</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="know" class="form-check-input" type="radio" id="know3" value="共同朋友">
+              <label class="form-check-label" for="know3">共同朋友</label>
+            </div>
+          </div>
+        </div>
+        <p class="h12">您選擇飲食是?</p>
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <span class="inputicon" id="basic-addon1">
+              <i class="fa fa-cutlery fa-fw fa-lg" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="radio-div pl-2 w-100 test" style="display: flex; align-items: center;">
+            <div class="form-check form-check-inline">
+              <input name="diet" class="form-check-input" type="radio" id="diet1" value="葷食">
+              <label class="form-check-label" for="diet1">葷食</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="diet" class="form-check-input" type="radio" id="diet2" value="素食">
+              <label class="form-check-label" for="diet2">素食</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bringing2" style="padding-left: 1.5rem;">
+        <h4><b>您會攜伴參加嗎?</b></h4>
+        <p class="subtitle">會的話幫我填寫，出席者資訊 ...</p>
+        <input type="radio" name="bringing" value="yes" id="bringingYes" class="radio-bringing--yes" checked />
+        <label for="bringingYes" class="label-bringing--yes h13">會的，我會攜伴參加。</label>
+        <div class="is_bringing" id="bringing">
+          <p class="subtitle">歡迎共襄盛舉，共同見證這對新人之婚禮。</p>
+          <div class="input-group mb-3 w-100">
+            <div class="input-group-text">
+              <span class="inputicon" id="basic-addon1">
+                <i class="fa fa-plus fa-fw fa-lg"></i>
+              </span>
+            </div>
+            <input type="text" disabled="disabled" placeholder="新增出席人員名單" aria-label="plus-column"
+              aria-describedby="basic-addon2" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">+ 新增
+              </button>
+              <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true"> -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                <!-- 模態對話框內容 -->
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        賓客新增(多、單人即可)</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="input-group mb-3">
+                        <div class="input-group-text">
+                          <span class="inputicon" id="basic-addon1">
+                            <i class="fa fa-user-circle fa-fw fa-lg"></i>
+                          </span>
+                        </div>
+                        <input type="text" name="fill_multi_names" id="fill_multi_names" class="form-control"
+                          placeholder="王小黑, 張靜宜張家5人" aria-label="MultPersons" aria-describedby="basic-addon1" />
+                      </div>
+
+                      <p>賓客選擇飲食是? (填上總人數 ex: 3。)</p>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                          <i class="fa-solid fa-cow fa-fw fa-lg"></i><!-- 葷食 -->
+                        </span>
+                        <input name="diet_choice_non_vegetarian" type="number" class="form-control" id="nonVegetarian"
+                          min="0" step="1" max="20" oninput="validity.valid||(value='');" style="padding: .5em;"
+                          placeholder="葷食" required>
+
+                      </div>
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">
+                          <i class="fa-solid fa-seedling fa-fw fa-lg"></i><!-- 素食 -->
+                        </span>
+                        <input name="diet_choice_vegetarian" type="number" class="form-control" id="vegetarian" min="0"
+                          step="1" max="20" oninput="validity.valid||(value='');" style="padding: .5em;"
+                          placeholder="素食" required>
+                      </div>
+
+                      <p>賓客需要幾張嬰兒座椅?</p>
+                      <div class="input-group mb-3">
+                        <div class="input-group-text">
+                          <span class="inputicon" id="basic-addon1">
+                            <i class="fas fa-chair fa-fw fa-lg"></i>
+                          </span>
+                        </div>
+                        <!-- 使用 number 類型的 input，讓使用者自行填寫數字 -->
+                        <input type="number" name="baby_seat" class="form-control" placeholder="嬰兒座椅數量"
+                          aria-label="baby_seat" aria-describedby="basic-addon1" min="0">
+
+                      </div>
+
+
+                      <p>※ 未滿18歲有幾位呢?</p>
+                      <div class="input-group mb-3">
+                        <div class="input-group-text">
+                          <span class="inputicon" id="basic-addon1">
+                            <i class="fa-solid fa-baby fa-fw fa-lg"></i>
+                          </span>
+                        </div>
+                        <!-- 使用 number 類型的 input，讓使用者自行填寫數字 -->
+                        <input type="number" name="kids_count" class="form-control" placeholder="未滿18歲以下 參加人數"
+                          aria-label="kids_count" aria-describedby="basic-addon1" min="0">
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        返回
+                      </button>
+                      <!-- <button id="AddGuestButton" type="submit" class="btn btn-primary" name="buttonSubmit">確定新增</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Scrollable modal end -->
+            </div>
+          </div>
+        </div>
+        <input type="radio" name="bringing" value="no" id="bringingNo" class="radio-bringing--no" />
+        <label for="bringingNo" class="label-bringing--no h13">不會，我隻身出席婚宴。</label>
+      </div>
+
+      <fieldset class="transfer" style="padding-left: 1.5rem;">
+        <h4><b>需要交通車接送嗎?</b></h4>
+        <p class="subtitle">聯繫乘坐專車事宜，麻煩填寫。</p>
+        <input type="radio" name="transfer" id="transferYes" value="yes" class="radio-transfer--yes" checked />
+        <label for="transferYes" class="label-transfer--yes">Yes，我需要!</label>
+
+        <div class="is_transfer" id="transfer">
+          <p class="h12">以下地點乘坐專車，統一等候、接送。</p>
+          <div class="input-group mb-3">
+            <div class="input-group-text">
+              <span class="inputicon" id="basic-addon1">
+                <i class="fa fa-user-o fa-fw fa-lg"></i>
+              </span>
+            </div>
+            <!-- <p class="h12">接送地點。</p> -->
+            <div class="radio-div pl-2 w-100 test">
+              <div class="form-check form-check-inline">
+                <input name="Pick_up_location" class="form-check-input" type="radio" id="pickup1" value="大學火車站">
+                <label class="form-check-label" for="pickup1">大學火車站</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input name="Pick_up_location" class="form-check-input" type="radio" id="pickup2" value="荃灣">
+                <label class="form-check-label" for="pickup2">荃灣</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input name="Pick_up_location" class="form-check-input" type="radio" id="pickup3" value="上環">
+                <label class="form-check-label" for="pickup3">上環</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input name="Pick_up_location" class="form-check-input" type="radio" id="pickup4" value="觀塘">
+                <label class="form-check-label" for="pickup4">觀塘</label>
+              </div>
+            </div>
+          </div>
+          <p class="subtitle">如選擇「其它」，請註明想增設地點或身心障礙專車，會因應需求再另安排!</p>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              <i class="fa fa-map-marker fa-fw fa-lg" aria-hidden="true"></i>
+            </span>
+            <input name="Add_location" type="text" class="form-control" placeholder="追加地點等事宜 ex: 中環、輪椅者搭乘"
+              aria-label="add_location" aria-describedby="basic-addon1" required>
+          </div>
+
+          <h4>需要搭乘者的個人資訊聯繫。</h4>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              <i class="fa fa-pencil fa-fw fa-lg"></i>
+            </span>
+            <input type="text" name="Passengers_name" id="Passengers_name" class="form-control"
+              placeholder="搭乘者姓名 ex:王曉明, 林小姐家五人" required />
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">
+              <i class="fa fa-phone fa-fw fa-lg"></i>
+            </span>
+            <input name="Passengers_phone_num" id="Passengers_phone_num" type="text" class="form-control"
+              placeholder="搭乘者電話" aria-label="Phone" aria-describedby="basic-addon1" required>
+          </div>
+
+        </div>
+
+        <input type="radio" name="transfer" value="no" id="transferNo" class="radio-transfer--no" />
+        <label for="transferNo" class="label-transfer--no">不需要，和家人/朋友自行前往。</label>
+      </fieldset>
+
+    </fieldset>
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 0; background-color: #4CAF50;">確認送出1</button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,1111 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block title %}Event Calendar{% endblock title %}
+
+{% block content %}
+<script src="{% static 'fullcalendar-6.1.11/dist/index.global.min.js' %}"></script>
+<!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
+
+<style>
+  /* 菜單 start */
+  .app-title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    background-color: #FFF;
+    margin: -30px -30px 30px;
+    padding: 20px 30px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .app-title h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .app-title p {
+    margin-bottom: 0;
+    font-style: italic;
+  }
+
+  /* 菜單 end */
+</style>
+
+
+<div class="content-wrapper px-4 py-2" style="min-height: 137.667px;">
+
+  <section class="content-header">
+    <div class="app-title">
+
+      <div>
+        <h1><i class="fa fa-calendar"></i> 日曆</h1>
+        <p>活動日曆 Event Calendar</p>
+      </div>
+      <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">日曆</a></li>
+      </ul>
+
+    </div>
+  </section>
+  <div class="content-header">
+    <h1>Ribbons Component</h1>
+
+    <div class="content px-2">
+      <p>The ribbons component is a easy way to display informations above any content. The <code
+          class="language-plaintext highlighter-rouge">.ribbon-warpper</code> needs to be inside a element with
+        <em>position:relative;</em>. In this docs page we place the ribbon always inside <code
+          class="language-plaintext highlighter-rouge">&lt;div class="position-relative p-3 bg-gray" style="height: 180px"&gt;&lt;/div&gt;</code>
+        for demo purpose but it can placed inside cards, table rows &amp; many more.
+      </p>
+      <p>The ribbon comes in three sizes to display more text or use larger font sizes, default (only <code
+          class="language-plaintext highlighter-rouge">.ribbon-wrapper</code>), large (<code
+          class="language-plaintext highlighter-rouge">.ribbon-wrapper</code> with <code
+          class="language-plaintext highlighter-rouge">.ribbon-lg</code>), extra large (<code
+          class="language-plaintext highlighter-rouge">.ribbon-wrapper</code> with <code
+          class="language-plaintext highlighter-rouge">.ribbon-xl</code>).</p>
+      <h5 class="text-bold text-dark mt-5" id="example-markup">Example Markup</h5>
+      <div class="position-relative p-3 bg-gray" style="height: 180px">
+        <div class="ribbon-wrapper">
+          <div class="ribbon bg-primary">
+            Ribbon
+          </div>
+        </div>
+        Ribbon Default <br>
+        <small>.ribbon-wrapper.ribbon-lg .ribbon</small>
+      </div>
+      <div class="language-html max-height-300 highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-primary"</span><span class="nt">&gt;</span>
+      Ribbon
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+        </div>
+      </div>
+      <h5 class="text-bold text-dark mt-5" id="ribbon-size-variations">Ribbon Size Variations</h5>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper">
+              <div class="ribbon bg-primary">
+                Ribbon
+              </div>
+            </div>
+            Ribbon Default <br>
+            <small>.ribbon-wrapper.ribbon-lg .ribbon</small>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper ribbon-lg">
+              <div class="ribbon bg-info">
+                Ribbon Large
+              </div>
+            </div>
+            Ribbon Large <br>
+            <small>.ribbon-wrapper.ribbon-lg .ribbon</small>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper ribbon-xl">
+              <div class="ribbon bg-secondary">
+                Ribbon Extra Large
+              </div>
+            </div>
+            Ribbon Extra Large <br>
+            <small>.ribbon-wrapper.ribbon-xl .ribbon</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-primary"</span><span class="nt">&gt;</span>
+        Ribbon
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-lg"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-info"</span><span class="nt">&gt;</span>
+        Ribbon Large
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-xl"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-secondary"</span><span class="nt">&gt;</span>
+        Ribbon Extra Large
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="text-bold text-dark mt-5" id="text-size-variations">Text Size Variations</h5>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper ribbon-lg">
+              <div class="ribbon bg-success text-lg">
+                Ribbon
+              </div>
+            </div>
+            Ribbon Large <br> with Large Text <br>
+            <small>.ribbon-wrapper.ribbon-lg .ribbon.text-lg</small>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper ribbon-xl">
+              <div class="ribbon bg-warning text-lg">
+                Ribbon
+              </div>
+            </div>
+            Ribbon Extra Large <br> with Large Text <br>
+            <small>.ribbon-wrapper.ribbon-xl .ribbon.text-lg</small>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="position-relative p-3 bg-gray" style="height: 180px">
+            <div class="ribbon-wrapper ribbon-xl">
+              <div class="ribbon bg-danger text-xl">
+                Ribbon
+              </div>
+            </div>
+            Ribbon Extra Large <br> with Extra Large Text <br>
+            <small>.ribbon-wrapper.ribbon-xl .ribbon.text-xl</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-lg"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-success text-lg"</span><span class="nt">&gt;</span>
+      Ribbon
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-xl"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-warning text-lg"</span><span class="nt">&gt;</span>
+      Ribbon
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="language-html highlighter-rouge">
+            <div class="highlight">
+              <pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-xl"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-danger text-xl"</span><span class="nt">&gt;</span>
+      Ribbon
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="text-bold text-dark mt-5" id="image-example-code">Image Example Code</h5>
+      <div class="language-html highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"position-relative"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"../../dist/img/photo1.png"</span> <span class="na">alt=</span><span class="s">"Photo 1"</span> <span class="na">class=</span><span class="s">"img-fluid"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon-wrapper ribbon-lg"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"ribbon bg-success text-lg"</span><span class="nt">&gt;</span>
+        Ribbon
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  </code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+    });
+  </script>
+
+  <script>
+    function converterDataParaDjangoFormat(data) {
+      const dataJS = new Date(data);
+      const ano = dataJS.getFullYear();
+      const mes = (dataJS.getMonth() + 1).toString().padStart(2, '0');
+      const dia = dataJS.getDate().toString().padStart(2, '0');
+      const hora = dataJS.getHours().toString().padStart(2, '0');
+      const minuto = dataJS.getMinutes().toString().padStart(2, '0');
+      const segundo = dataJS.getSeconds().toString().padStart(2, '0');
+      const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+      return formatoDjango;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      // 獲取三個 div 元素
+      var calendarEl1 = document.getElementById('calendar1');
+      var calendarEl2 = document.getElementById('calendar2');
+      var calendarEl3 = document.getElementById('calendar3');
+      // 獲取當前日期    
+      var today = new Date();
+
+      // 初始化第一個月份的 FullCalendar
+      var calendar1 = new FullCalendar.Calendar(calendarEl1, {
+        // 獲取當前日期
+        initialDate: new Date(today.getFullYear(), today.getMonth() - 1, 1),
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        },
+        // 其他配置選項
+        locale: 'UTC',
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        select: function (arg) {
+          console.log('clicked')
+          console.log(arg.start)
+          console.log(arg.end)
+          var modal = document.getElementById('eventModal')
+          modal.style.display = 'block'
+          document.getElementById('id_start_time').value = converterDataParaDjangoFormat(arg.start);
+          document.getElementById('id_end_time').value = converterDataParaDjangoFormat(arg.end);
+          calendar1.unselect()
+        },
+
+        eventClick: function (arg) {
+          console.log('clicked')
+          var title = arg.event.title;
+          var start = formatDateTime(arg.event.start);
+          var end = formatDateTime(arg.event.end);
+          var description = arg.event.extendedProps.description || '';
+          var id = arg.event.id;
+
+          var modalInputEnd = document.getElementById('end_event_detail');
+
+          var modal = document.getElementById('detailModal')
+          var modalTitle = document.getElementById('title_event_detail');
+          var modalStart = document.getElementById('start_event_detail');
+          var modalEnd = document.getElementById('end_event_detail');
+          var modalDescripition = document.getElementById('description_event_detail');
+          var deleteButton = document.getElementById("delete-event-button");
+          var nextWeek = document.getElementById("add-to-next-week");
+          var nextDay = document.getElementById("add-to-next-day");
+
+          deleteButton.setAttribute("data-event-id", id);
+          nextWeek.setAttribute("data-event-id-week", id);
+          nextDay.setAttribute("data-event-id-day", id);
+          modal.style.display = 'block'
+
+          modalTitle.textContent = title;
+          modalStart.textContent = start;
+          modalEnd.textContent = end;
+          modalDescripition.textContent = description;
+
+          modal.style.display = 'block';
+        },
+        editable: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        events: {{ events| safe }},
+    });
+
+    // 初始化第二個月份的 FullCalendar
+    var calendar2 = new FullCalendar.Calendar(calendarEl2, {
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+      },
+      // 其他配置選項
+      locale: 'UTC',
+      initialDate: new Date(),
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectMirror: true,
+      select: function (arg) {
+        console.log('clicked')
+        console.log(arg.start)
+        console.log(arg.end)
+        var modal = document.getElementById('eventModal')
+        modal.style.display = 'block'
+        document.getElementById('id_start_time').value = converterDataParaDjangoFormat(arg.start);
+        document.getElementById('id_end_time').value = converterDataParaDjangoFormat(arg.end);
+        calendar2.unselect()
+      },
+
+      eventClick: function (arg) {
+        console.log('clicked')
+        var title = arg.event.title;
+        var start = formatDateTime(arg.event.start);
+        var end = formatDateTime(arg.event.end);
+        var description = arg.event.extendedProps.description || '';
+        var id = arg.event.id;
+
+        var modalInputEnd = document.getElementById('end_event_detail');
+
+        var modal = document.getElementById('detailModal')
+        var modalTitle = document.getElementById('title_event_detail');
+        var modalStart = document.getElementById('start_event_detail');
+        var modalEnd = document.getElementById('end_event_detail');
+        var modalDescripition = document.getElementById('description_event_detail');
+        var deleteButton = document.getElementById("delete-event-button");
+        var nextWeek = document.getElementById("add-to-next-week");
+        var nextDay = document.getElementById("add-to-next-day");
+
+        deleteButton.setAttribute("data-event-id", id);
+        nextWeek.setAttribute("data-event-id-week", id);
+        nextDay.setAttribute("data-event-id-day", id);
+
+        modal.style.display = 'block'
+        modalTitle.textContent = title;
+        modalStart.textContent = start;
+        modalEnd.textContent = end;
+        modalDescripition.textContent = description;
+      },
+      editable: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: {{ events| safe }},
+    });
+
+    // 初始化第三個月份的 FullCalendar
+    var calendar3 = new FullCalendar.Calendar(calendarEl3, {
+      headerToolbar: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+      },
+      // 其他配置選項
+      locale: 'UTC',
+      initialDate: new Date(today.getFullYear(), today.getMonth() + 1, 1), // 下下個月,
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectMirror: true,
+      select: function (arg) {
+        console.log('clicked')
+        console.log(arg.start)
+        console.log(arg.end)
+        var modal = document.getElementById('eventModal')
+        modal.style.display = 'block'
+        document.getElementById('id_start_time').value = converterDataParaDjangoFormat(arg.start);
+        document.getElementById('id_end_time').value = converterDataParaDjangoFormat(arg.end);
+        calendar3.unselect()
+      },
+
+      eventClick: function (arg) {
+        console.log('clicked')
+        var title = arg.event.title;
+        var start = formatDateTime(arg.event.start);
+        var end = formatDateTime(arg.event.end);
+        var description = arg.event.extendedProps.description || '';
+        var id = arg.event.id;
+
+        var modalInputEnd = document.getElementById('end_event_detail');
+
+        var modal = document.getElementById('detailModal')
+        var modalTitle = document.getElementById('title_event_detail');
+        var modalStart = document.getElementById('start_event_detail');
+        var modalEnd = document.getElementById('end_event_detail');
+        var modalDescripition = document.getElementById('description_event_detail');
+        var deleteButton = document.getElementById("delete-event-button");
+        var nextWeek = document.getElementById("add-to-next-week");
+        var nextDay = document.getElementById("add-to-next-day");
+
+        deleteButton.setAttribute("data-event-id", id);
+        nextWeek.setAttribute("data-event-id-week", id);
+        nextDay.setAttribute("data-event-id-day", id);
+        modal.style.display = 'block'
+
+        modalTitle.textContent = title;
+        modalStart.textContent = start;
+        modalEnd.textContent = end;
+        modalDescripition.textContent = description;
+      },
+      editable: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: {{ events| safe }},
+    });
+
+    // 渲染這三個月份的 FullCalendar
+    calendar1.render();
+    calendar2.render();
+    calendar3.render();
+  });
+
+    const closeBtn1 = document.getElementById('modalClose1');
+    const closeBtn2 = document.getElementById('modalClose2');
+    const closeBtn3 = document.getElementById('modalDetailClose');
+    closeBtn1.addEventListener('click', () => {
+      const eventModal = document.getElementById('eventModal')
+      eventModal.style.display = 'none';
+    });
+    closeBtn2.addEventListener('click', () => {
+      const eventModal = document.getElementById('eventModal')
+      eventModal.style.display = 'none';
+    });
+    closeBtn3.addEventListener('click', () => {
+      const eventModal = document.getElementById('detailModal')
+      eventModal.style.display = 'none';
+    });
+    function formatDateTime(dateTime) {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+      const dataFormatada = new Date(dateTime).toLocaleDateString('pt-BR', options);
+      return dataFormatada;
+    };
+
+    document.getElementById('delete-event-button').addEventListener('click', function () {
+      const eventId = this.getAttribute('data-event-id');
+      console.log('eventId:', eventId);
+      if (confirm('Are you sure you want to delete this event?')) {
+        $.ajax({
+          // 確保前端 AJAX 請求的 URL 與 Django 視圖的 URL 模式匹配。你可以修改前端的 URL 為 /calendarapp/delete_event/${eventId}/，以確保它與你的 Django 視圖相匹配。
+          url: `/calendarapp/delete_event/${eventId}/`,
+          type: 'POST',
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+          },
+          success: function (response) {
+            alert(response.message);
+            window.location.reload();
+            console.log('response:', response);
+          },
+          error: function (xhr, status, error) {
+            console.log('XHR:', xhr);
+            console.log('Status:', status);
+            console.log('Error:', error);
+            alert('Error!');
+          }
+
+        });
+      }
+    });
+
+    document.getElementById('add-to-next-week').addEventListener('click', function () {
+      const eventId = this.getAttribute('data-event-id-week');
+      console.log('eventId:', eventId);
+
+      if (confirm('您確定要將此活動加入下週嗎？')) {
+        $.ajax({
+          url: `/calendarapp/next_week/${eventId}/`,
+          type: 'POST',
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+          },
+          success: function (response) {
+            alert(response.message);
+            window.location.reload();
+          },
+          error: function (xhr, status, error) {
+            alert('Error!');
+          }
+        });
+      }
+    });
+
+    document.getElementById('add-to-next-day').addEventListener('click', function () {
+      const eventId = this.getAttribute('data-event-id-day');
+      console.log('eventId:', eventId);
+
+      if (confirm('您確定要將此活動新增至第二天嗎？')) {
+        $.ajax({
+          url: `/calendarapp/next_day/${eventId}/`,
+          type: 'POST',
+          data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+          },
+          success: function (response) {
+            alert(response.message);
+            window.location.reload();
+          },
+          error: function (xhr, status, error) {
+            alert('Error!');
+          }
+        });
+      }
+    });
+
+  </script>
+  {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h4 class="box-title">Draggable Events</h4>
+          </div>
+          <div class="box-body">
+
+            <div id="external-events">
+              <div class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;">Lunch
+              </div>
+              <div class="external-event bg-yellow ui-draggable ui-draggable-handle" style="position: relative;">Go home
+              </div>
+              <div class="external-event bg-aqua ui-draggable ui-draggable-handle" style="position: relative;">Do
+                homework</div>
+              <div class="external-event bg-light-blue ui-draggable ui-draggable-handle" style="position: relative;">
+                Work on UI design</div>
+              <div class="external-event bg-red ui-draggable ui-draggable-handle" style="position: relative;">Sleep
+                tight</div>
+              <div class="checkbox">
+                <label for="drop-remove">
+                  <input type="checkbox" id="drop-remove">
+                  remove after drop
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Create Event</h3>
+          </div>
+          <div class="box-body">
+            <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+
+              <ul class="fc-color-picker" id="color-chooser">
+                <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
+                <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+              </ul>
+            </div>
+
+            <div class="input-group">
+              <input id="new-event" type="text" class="form-control" placeholder="Event Title">
+              <div class="input-group-btn">
+                <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Add</button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <div class="box box-primary">
+          <div class="box-body no-padding">
+
+            <div id="calendar" class="fc fc-unthemed fc-ltr">
+              <div class="fc-toolbar fc-header-toolbar">
+                <div class="fc-left">
+                  <div class="fc-button-group"><button type="button"
+                      class="fc-prev-button fc-button fc-state-default fc-corner-left" aria-label="prev"><span
+                        class="fc-icon fc-icon-left-single-arrow"></span></button><button type="button"
+                      class="fc-next-button fc-button fc-state-default fc-corner-right" aria-label="next"><span
+                        class="fc-icon fc-icon-right-single-arrow"></span></button></div><button type="button"
+                    class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled"
+                    disabled="">today</button>
+                </div>
+                <div class="fc-right">
+                  <div class="fc-button-group"><button type="button"
+                      class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">month</button><button
+                      type="button" class="fc-agendaWeek-button fc-button fc-state-default">week</button><button
+                      type="button" class="fc-agendaDay-button fc-button fc-state-default fc-corner-right">day</button>
+                  </div>
+                </div>
+                <div class="fc-center">
+                  <h2>May 2024</h2>
+                </div>
+                <div class="fc-clear"></div>
+              </div>
+              <div class="fc-view-container" style="">
+                <div class="fc-view fc-month-view fc-basic-view" style="">
+                  <table class="">
+                    <thead class="fc-head">
+                      <tr>
+                        <td class="fc-head-container fc-widget-header">
+                          <div class="fc-row fc-widget-header">
+                            <table class="">
+                              <thead>
+                                <tr>
+                                  <th class="fc-day-header fc-widget-header fc-sun"><span>Sun</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-mon"><span>Mon</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-tue"><span>Tue</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-wed"><span>Wed</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-thu"><span>Thu</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-fri"><span>Fri</span></th>
+                                  <th class="fc-day-header fc-widget-header fc-sat"><span>Sat</span></th>
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                        </td>
+                      </tr>
+                    </thead>
+                    <tbody class="fc-body">
+                      <tr>
+                        <td class="fc-widget-content">
+                          <div class="fc-scroller fc-day-grid-container" style="overflow: hidden; height: 530px;">
+                            <div class="fc-day-grid fc-unselectable">
+                              <div class="fc-row fc-week fc-widget-content" style="height: 88px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-other-month fc-past"
+                                          data-date="2024-04-28"></td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-other-month fc-past"
+                                          data-date="2024-04-29"></td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-other-month fc-past"
+                                          data-date="2024-04-30"></td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2024-05-01"></td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2024-05-02"></td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2024-05-03"></td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2024-05-04"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-other-month fc-past" data-date="2024-04-28">
+                                          <span class="fc-day-number">28</span>
+                                        </td>
+                                        <td class="fc-day-top fc-mon fc-other-month fc-past" data-date="2024-04-29">
+                                          <span class="fc-day-number">29</span>
+                                        </td>
+                                        <td class="fc-day-top fc-tue fc-other-month fc-past" data-date="2024-04-30">
+                                          <span class="fc-day-number">30</span>
+                                        </td>
+                                        <td class="fc-day-top fc-wed fc-past" data-date="2024-05-01"><span
+                                            class="fc-day-number">1</span></td>
+                                        <td class="fc-day-top fc-thu fc-past" data-date="2024-05-02"><span
+                                            class="fc-day-number">2</span></td>
+                                        <td class="fc-day-top fc-fri fc-past" data-date="2024-05-03"><span
+                                            class="fc-day-number">3</span></td>
+                                        <td class="fc-day-top fc-sat fc-past" data-date="2024-05-04"><span
+                                            class="fc-day-number">4</span></td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="fc-event-container"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                            style="background-color:#f56954;border-color:#f56954">
+                                            <div class="fc-content"><span class="fc-time">12a</span> <span
+                                                class="fc-title">All Day Event</span></div>
+                                          </a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="fc-row fc-week fc-widget-content" style="height: 88px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2024-05-05"></td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2024-05-06"></td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2024-05-07"></td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2024-05-08"></td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2024-05-09"></td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2024-05-10"></td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2024-05-11"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-past" data-date="2024-05-05"><span
+                                            class="fc-day-number">5</span></td>
+                                        <td class="fc-day-top fc-mon fc-past" data-date="2024-05-06"><span
+                                            class="fc-day-number">6</span></td>
+                                        <td class="fc-day-top fc-tue fc-past" data-date="2024-05-07"><span
+                                            class="fc-day-number">7</span></td>
+                                        <td class="fc-day-top fc-wed fc-past" data-date="2024-05-08"><span
+                                            class="fc-day-number">8</span></td>
+                                        <td class="fc-day-top fc-thu fc-past" data-date="2024-05-09"><span
+                                            class="fc-day-number">9</span></td>
+                                        <td class="fc-day-top fc-fri fc-past" data-date="2024-05-10"><span
+                                            class="fc-day-number">10</span></td>
+                                        <td class="fc-day-top fc-sat fc-past" data-date="2024-05-11"><span
+                                            class="fc-day-number">11</span></td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="fc-row fc-week fc-widget-content" style="height: 88px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2024-05-12"></td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2024-05-13"></td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2024-05-14"></td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2024-05-15"></td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2024-05-16"></td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2024-05-17"></td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2024-05-18"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-past" data-date="2024-05-12"><span
+                                            class="fc-day-number">12</span></td>
+                                        <td class="fc-day-top fc-mon fc-past" data-date="2024-05-13"><span
+                                            class="fc-day-number">13</span></td>
+                                        <td class="fc-day-top fc-tue fc-past" data-date="2024-05-14"><span
+                                            class="fc-day-number">14</span></td>
+                                        <td class="fc-day-top fc-wed fc-past" data-date="2024-05-15"><span
+                                            class="fc-day-number">15</span></td>
+                                        <td class="fc-day-top fc-thu fc-past" data-date="2024-05-16"><span
+                                            class="fc-day-number">16</span></td>
+                                        <td class="fc-day-top fc-fri fc-past" data-date="2024-05-17"><span
+                                            class="fc-day-number">17</span></td>
+                                        <td class="fc-day-top fc-sat fc-past" data-date="2024-05-18"><span
+                                            class="fc-day-number">18</span></td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="fc-event-container" colspan="2"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-not-end fc-draggable"
+                                            style="background-color:#f39c12;border-color:#f39c12">
+                                            <div class="fc-content"><span class="fc-time">12a</span> <span
+                                                class="fc-title">Long Event</span></div>
+                                          </a></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="fc-row fc-week fc-widget-content" style="height: 88px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2024-05-19"></td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2024-05-20"></td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2024-05-21"></td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-today " data-date="2024-05-22">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-future" data-date="2024-05-23">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-future" data-date="2024-05-24">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-future" data-date="2024-05-25">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-past" data-date="2024-05-19"><span
+                                            class="fc-day-number">19</span></td>
+                                        <td class="fc-day-top fc-mon fc-past" data-date="2024-05-20"><span
+                                            class="fc-day-number">20</span></td>
+                                        <td class="fc-day-top fc-tue fc-past" data-date="2024-05-21"><span
+                                            class="fc-day-number">21</span></td>
+                                        <td class="fc-day-top fc-wed fc-today " data-date="2024-05-22"><span
+                                            class="fc-day-number">22</span></td>
+                                        <td class="fc-day-top fc-thu fc-future" data-date="2024-05-23"><span
+                                            class="fc-day-number">23</span></td>
+                                        <td class="fc-day-top fc-fri fc-future" data-date="2024-05-24"><span
+                                            class="fc-day-number">24</span></td>
+                                        <td class="fc-day-top fc-sat fc-future" data-date="2024-05-25"><span
+                                            class="fc-day-number">25</span></td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-event-container" rowspan="2"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-not-start fc-end fc-draggable"
+                                            style="background-color:#f39c12;border-color:#f39c12">
+                                            <div class="fc-content"> <span class="fc-title">Long Event</span></div>
+                                          </a></td>
+                                        <td rowspan="2"></td>
+                                        <td rowspan="2"></td>
+                                        <td class="fc-event-container"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                            style="background-color:#0073b7;border-color:#0073b7">
+                                            <div class="fc-content"><span class="fc-time">10:30a</span> <span
+                                                class="fc-title">Meeting</span></div>
+                                          </a></td>
+                                        <td class="fc-event-container" rowspan="2"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                            style="background-color:#00a65a;border-color:#00a65a">
+                                            <div class="fc-content"><span class="fc-time">7p</span> <span
+                                                class="fc-title">Birthday Party</span></div>
+                                          </a></td>
+                                        <td rowspan="2"></td>
+                                        <td rowspan="2"></td>
+                                      </tr>
+                                      <tr>
+                                        <td class="fc-event-container"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                            style="background-color:#00c0ef;border-color:#00c0ef">
+                                            <div class="fc-content"><span class="fc-time">12p</span> <span
+                                                class="fc-title">Lunch</span></div>
+                                          </a></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="fc-row fc-week fc-widget-content" style="height: 88px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-future" data-date="2024-05-26">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-future" data-date="2024-05-27">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-future" data-date="2024-05-28">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-future" data-date="2024-05-29">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-future" data-date="2024-05-30">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-future" data-date="2024-05-31">
+                                        </td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-other-month fc-future"
+                                          data-date="2024-06-01"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-future" data-date="2024-05-26"><span
+                                            class="fc-day-number">26</span></td>
+                                        <td class="fc-day-top fc-mon fc-future" data-date="2024-05-27"><span
+                                            class="fc-day-number">27</span></td>
+                                        <td class="fc-day-top fc-tue fc-future" data-date="2024-05-28"><span
+                                            class="fc-day-number">28</span></td>
+                                        <td class="fc-day-top fc-wed fc-future" data-date="2024-05-29"><span
+                                            class="fc-day-number">29</span></td>
+                                        <td class="fc-day-top fc-thu fc-future" data-date="2024-05-30"><span
+                                            class="fc-day-number">30</span></td>
+                                        <td class="fc-day-top fc-fri fc-future" data-date="2024-05-31"><span
+                                            class="fc-day-number">31</span></td>
+                                        <td class="fc-day-top fc-sat fc-other-month fc-future" data-date="2024-06-01">
+                                          <span class="fc-day-number">1</span>
+                                        </td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="fc-event-container"><a
+                                            class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                            href="http://google.com/"
+                                            style="background-color:#3c8dbc;border-color:#3c8dbc">
+                                            <div class="fc-content"><span class="fc-time">12a</span> <span
+                                                class="fc-title">Click for Google</span></div>
+                                          </a></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                              <div class="fc-row fc-week fc-widget-content" style="height: 90px;">
+                                <div class="fc-bg">
+                                  <table class="">
+                                    <tbody>
+                                      <tr>
+                                        <td class="fc-day fc-widget-content fc-sun fc-other-month fc-future"
+                                          data-date="2024-06-02"></td>
+                                        <td class="fc-day fc-widget-content fc-mon fc-other-month fc-future"
+                                          data-date="2024-06-03"></td>
+                                        <td class="fc-day fc-widget-content fc-tue fc-other-month fc-future"
+                                          data-date="2024-06-04"></td>
+                                        <td class="fc-day fc-widget-content fc-wed fc-other-month fc-future"
+                                          data-date="2024-06-05"></td>
+                                        <td class="fc-day fc-widget-content fc-thu fc-other-month fc-future"
+                                          data-date="2024-06-06"></td>
+                                        <td class="fc-day fc-widget-content fc-fri fc-other-month fc-future"
+                                          data-date="2024-06-07"></td>
+                                        <td class="fc-day fc-widget-content fc-sat fc-other-month fc-future"
+                                          data-date="2024-06-08"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="fc-content-skeleton">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <td class="fc-day-top fc-sun fc-other-month fc-future" data-date="2024-06-02">
+                                          <span class="fc-day-number">2</span>
+                                        </td>
+                                        <td class="fc-day-top fc-mon fc-other-month fc-future" data-date="2024-06-03">
+                                          <span class="fc-day-number">3</span>
+                                        </td>
+                                        <td class="fc-day-top fc-tue fc-other-month fc-future" data-date="2024-06-04">
+                                          <span class="fc-day-number">4</span>
+                                        </td>
+                                        <td class="fc-day-top fc-wed fc-other-month fc-future" data-date="2024-06-05">
+                                          <span class="fc-day-number">5</span>
+                                        </td>
+                                        <td class="fc-day-top fc-thu fc-other-month fc-future" data-date="2024-06-06">
+                                          <span class="fc-day-number">6</span>
+                                        </td>
+                                        <td class="fc-day-top fc-fri fc-other-month fc-future" data-date="2024-06-07">
+                                          <span class="fc-day-number">7</span>
+                                        </td>
+                                        <td class="fc-day-top fc-sat fc-other-month fc-future" data-date="2024-06-08">
+                                          <span class="fc-day-number">8</span>
+                                        </td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+
+  
+  

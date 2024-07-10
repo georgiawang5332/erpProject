@@ -1,0 +1,126 @@
+{% load static %}
+<form method="POST" action="{% url 'invite:givemoney_view' %}" id="theFormB" class="givemoney-form">
+    {% csrf_token %}
+
+    <fieldset class="givemoney">
+        <h3>不克前去但會給予禮金。</h3>
+        <input name="givemoney" type="radio" id="givemoneyYes" value="yes" class="radio-givemoney--yes"
+               style="display: none"
+               checked/>
+        <label for="bringingYes" class="label-givemoney--yes" style="display: none">Yes!</label>
+
+        <div class="is_givemoney" id="givemoney">
+            <h4>謝謝您，如下資料填寫，會幫您作登記?</h4>
+            <p class="subtitle"></p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-pencil fa-fw fa-lg" aria-hidden="true"></i>-->
+                        <img src="{% static 'image/pencil.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="nameGive" type="text" placeholder="姓名" aria-label="Username"
+                       aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-phone fa-fw fa-lg"></i>-->
+                        <img src="{% static 'image/phone.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="phoneGive" type="text" placeholder="連絡電話" aria-label="Phone"
+                       aria-describedby="basic-addon1">
+            </div>
+            <p class="h12">希望以什麼方式收到喜帖? (擇一填寫)</p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-map-marker fa-fw fa-lg"></i>-->
+                        <img src="{% static 'image/placeholder.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="addressGive" type="text"
+                       placeholder="請輸入地址&nbsp;&nbsp;ex: 104 台北市敬業路三段5號10樓"
+                       aria-label="address"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+<!--                        <i class="fa fa-envelope-o fa-fw fa-lg"></i>-->
+                        <img src="{% static 'image/address.png'%}" width="45" height="45">
+                    </span>
+                </div>
+                <input name="emailGive" type="text"
+                       placeholder="請輸入郵件帳號&nbsp;&nbsp;ex: abc123@gmail.com"
+                       aria-label="E-mail"
+                       aria-describedby="basic-addon1">
+            </div>
+            <p class="h12">禮金付款方式?</p>
+            <div class="input-group mb-3 a">
+                <div class="container">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="p-3 border bg-light">
+                                <p>ATM 轉帳(臨櫃)匯款帳戶 :</p>
+                                <p>
+                                    <span>中國信託 - 城東分行</span><br>
+                                    <span>銀行代碼：822</span><br>
+                                    <span>帳號：071540261312</span><br>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 border bg-light">
+                                <span>郵局匯款(臨櫃)帳戶 :</span>
+                                <p>
+                                    <span>銀行代號：700 (郵局)</span><br>
+                                    <span>局號（含檢號）：1234567</span><br>
+                                    <span>帳號（含檢號）：8901234</span><br>
+                                    <span>戶名：陳阿鳩</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="h12">運用地址寄送，後續再與我們提醒與通知: </p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+                        <i class="fa fa-map-marker fa-fw fa-lg"></i>
+                    </span>
+                </div>
+                <input type="text" disabled="disabled" placeholder="地址: 10491台北市中山區敬業三路20號"
+                       aria-label="address"
+                       aria-describedby="basic-addon1">
+            </div>
+            <span>ATM或臨櫃匯款後通知，如下: </span>
+            <p class="h12">請 mail 到 信箱 並請在內容提供您的<br><span
+                    class="low-highlight">戶名(全名)、匯款日期、金額 以及您的 帳號末五碼</span>，謝謝!
+            </p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="inputicon" id="basic-addon1">
+                        <i class="fa fa-envelope-o fa-fw fa-lg"></i>
+                    </span>
+                </div>
+                <input type="text" disabled="disabled"
+                       placeholder="信箱: wleejan982@hotmail.com"
+                       aria-label="E-mail"
+                       aria-describedby="basic-addon1">
+            </div>
+
+        </div>
+
+        <input name="givemoney" type="radio" value="no" id="givemoneyNo" class="radio-givemoney--no"
+               style="display: none"/>
+        <label for="givemoneyNo" class="label-givemoney--no" style="display: none">No, I'm the lone ranger</label>
+        <div class="mb-3">
+            <button class="send-card-button" id="theButtonB">送出☆</button>
+            <div id="thankyou" class="thank-you"></div>
+        </div>
+    </fieldset>
+</form>
