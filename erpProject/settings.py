@@ -66,9 +66,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware', #07152024補
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #07152024補
-
-
 ROOT_URLCONF = 'erpProject.urls'
 
 TEMPLATES = [
@@ -141,15 +138,16 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # 收集靜態文件的目錄
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 靜態文件的其他目錄
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    # '/var/www/static/',  # 如果目錄存在且需要，可以添加其他目錄
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #07152024補
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
