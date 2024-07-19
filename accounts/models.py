@@ -50,7 +50,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     from django.contrib.auth.models import Group, Permission
-    
+  
     # 分配群組和權限
     groups = models.ManyToManyField(
         Group,
@@ -88,7 +88,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_("Active"), default=True)
     date_joined = models.DateTimeField(_("Date Joined"), auto_now_add=True)
     last_updated = models.DateTimeField(_("Last Updated"), auto_now=True)
-
+    
     objects = UserManager()
 
     USERNAME_FIELD = "email"  # 使用 email 作為 USERNAME_FIELD

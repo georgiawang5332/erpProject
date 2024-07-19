@@ -148,22 +148,30 @@
       </a>
       <ul class="dropdown-menu">
         <li class="user-header">
-          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">
-          <p>
-            Alexander Pierce - Web Developer
-            <small>Member since Nov. 2012</small>
-          </p>
+          {% if user.is_authenticated %}
+            {% if user.avatar %}
+              <img src="" class="img-circle" alt="User Image">
+            {% else %}
+              <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">
+            {% endif %}
+            <p>
+              <div>使用者: {{user.first_name}} {{user.last_name}}</div>
+              <small>{{ user.get_username }}</small>
+            </p>
+          {% endif %}
         </li>
         <li class="user-body">
-          <div class="row">
-            <div class="col-xs-4 text-center">
-              <a href="#">Followers</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Sales</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Friends</a>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-4 text-center p-1">
+                <a href="#">Followers</a>
+              </div>
+              <div class="col-4 text-center p-1">
+                <a href="#">Sales</a>
+              </div>
+              <div class="col-4 text-center p-1">
+                <a href="#">Friends</a>
+              </div>
             </div>
           </div>
         </li>
