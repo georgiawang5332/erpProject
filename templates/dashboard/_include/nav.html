@@ -143,21 +143,31 @@
     <!-- login/out -->
     <li class="nav-item dropdown user user-menu">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-        <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image" alt="User Image">
-        <span class="hidden-xs">Alexander Pierce</span>
+        {% if user.avatar %} <!-- 沒照片登入就會錯誤，要添加 -->
+          <img src="{{ user.avatar.url }}" class="user-image" alt="User Image">
+        {% else %}
+          <img src="{% static 'path/to/default/image.jpg' %}" class="img-circle" alt="Default User Image">
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        <span class="hidden-xs">
+          {{user.first_name}} {{user.last_name}}
+        </span>
+        {% endif %}
       </a>
       <ul class="dropdown-menu">
         <li class="user-header">
           {% if user.is_authenticated %}
-            {% if user.avatar %}
-              <img src="" class="img-circle" alt="User Image">
-            {% else %}
-              <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">
-            {% endif %}
-            <p>
-              <div>使用者: {{user.first_name}} {{user.last_name}}</div>
-              <small>{{ user.get_username }}</small>
-            </p>
+          {% if user.avatar %}
+          <img src="{{ user.avatar.url }}" class="img-circle" alt="User Image">
+          {% else %}
+          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">
+          {% endif %}
+          <p>
+          <div>使用者: {{user.first_name}} {{user.last_name}}</div>
+          <small>{{ user.get_username }}</small>
+          </p>
           {% endif %}
         </li>
         <li class="user-body">

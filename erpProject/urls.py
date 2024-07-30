@@ -21,6 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     # 業務項目很多種
+    path("sendEmail/", include("sendEmail.urls")),
     path("BudgetSheet/", include("BudgetSheet.urls")),
     path("PreparationFlowChart/", include("PreparationFlowChart.urls")),
     path("InviteSendForm/", include("InviteSendForm.urls")),

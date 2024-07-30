@@ -13,7 +13,10 @@ class SignInView(View):
 
     def get(self, request, *args, **kwargs):
         forms = self.form_class()
-        context = {"form": forms}
+        context = {
+            "form": forms,
+            "user_avatar": request.user.avatar.url if request.user.is_authenticated and request.user.avatar else None
+        }
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -25,6 +28,10 @@ class SignInView(View):
             if user:
                 login(request, user)
                 return redirect("dash:dashboard")
-        context = {"form": forms}
+        context = {
+            "form": forms,
+            # 因在此createsuperuser新增會無法顯示照片所以利用createsuperuser新增的都會進不去產生錯誤! nav.html 就添加了if else
+            "user_avatar": request.user.avatar.url if request.user.is_authenticated and request.user.avatar else None
+            }
         return render(request, self.template_name, context)
 

@@ -52,19 +52,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     # 
     email = models.EmailField(
-        _("Email Address"),
+        _("信箱帳號"),
         max_length=255,
         unique=True,
         help_text="Ex: example@example.com",
     )
     username = models.CharField(
-        _("Username"),
+        _("名稱"),
         max_length=255,
         unique=True,
-        help_text="Your full name",
+        help_text="你的全名",
     )
-    first_name = models.CharField(_("First Name"), max_length=30, blank=True)
-    last_name = models.CharField(_("Last Name"), max_length=30, blank=True)
+    first_name = models.CharField(_("姓氏"), max_length=30, blank=True)
+    last_name = models.CharField(_("名字"), max_length=30, blank=True)
+    avatar = models.ImageField(_("頭像"), upload_to='avatars/', null=True, blank=True, )
     
     is_staff = models.BooleanField(_("Staff status"), default=False)
     is_active = models.BooleanField(_("Active"), default=True)
