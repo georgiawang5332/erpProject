@@ -1,0 +1,166 @@
+{% load static %}
+<style>
+  /* navbar side start */
+  .nav-sidebar .nav-link>.right,
+  .nav-sidebar .nav-link>p>.right {
+
+    top: .3rem;
+  }
+  /* navbar side start */
+  
+</style>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a href="index3.html" class="brand-link">
+    <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">AdminLTE 3</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      {% if user.is_authenticated %}
+      <div class="image">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" class="img-circle elevation-2" alt="User Image">
+        {% endif %}
+      </div>
+      <div class="info">
+        <a href="#" class="d-block">{{ user.get_username }}</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- SidebarSearch Form -->
+    <div class="form-inline">
+      <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-sidebar">
+            <i class="fas fa-search fa-fw"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a href="{% url 'dash:dashboard' %}" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              儀表板
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">日曆</li>
+        <li class="nav-item">
+          <a href="{% url 'calendarapp:calendar' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              Calendar
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-pie"></i>
+            <p>
+              Charts(test disabled)
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="pages/charts/chartjs.html" class="nav-link disabled">
+                <i class="far fa-circle nav-icon"></i>
+                <p>ChartJS</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/charts/flot.html" class="nav-link disabled">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Flot</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/charts/inline.html" class="nav-link disabled">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Inline</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-header">婚禮籌備</li>
+        <li class="nav-item">
+          <a href="{% url 'budget:budget_sheet_click' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              婚禮預算表
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'budget:list_currency' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              婚禮預算表-貨幣
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'budget:list_category' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              婚禮預算表-類別
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">人員通訊錄</li>
+        <li class="nav-item">
+          <a href="{% url 'personnelAddBook:personnel_address_book' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              信箱通訊錄管理
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account:list_emp_info_click' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              員工個人資料
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">同仁信箱管理</li>
+        <li class="nav-item">
+          <a href="{% url 'personnelAddBook:email_list' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              信箱管理
+            </p>
+          </a>
+        </li>
+        <li class="nav-header">履歷表</li>
+        <li class="nav-item">
+          <a href="{% url 'resume:resume_app' %}" class="nav-link">
+            <i class="nav-icon far fa-image"></i>
+            <p>
+              我的履歷表
+            </p>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

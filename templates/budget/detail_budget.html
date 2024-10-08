@@ -1,0 +1,107 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">詳閱 婚禮預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">詳閱 婚禮預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">婚禮預算表</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">新增 婚禮預算表</li>
+          </ol>
+        </nav> -->
+
+        <div class="card">
+          <div class="card-body">
+
+            <table class="table table-bordered">
+              <tr>
+                <th>項目編號</th>
+                <td>{{ detail_budget_sheets.id }}</td>
+              </tr>
+              <tr>
+                <th>類別</th>
+                <td>{{ detail_budget_sheets.category }}</td>
+              </tr>
+              <tr>
+                <th>支出項目</th>
+                <td>{{ detail_budget_sheets.expenditure_items }}</td>
+              </tr>
+              <tr>
+                <th>預計數量</th>
+                <td>{{ detail_budget_sheets.estimated_quantity }}</td>
+              </tr>
+              <tr>
+                <th>預計單價</th>
+                <td>{{ detail_budget_sheets.estimated_unit_price }}</td>
+              </tr>
+              <tr>
+                <th>貨幣</th>
+                <td>{{ detail_budget_sheets.currency }}</td>
+              </tr>
+              <tr>
+                <th>預計費用支出</th>
+                <td>{{ detail_budget_sheets.estimated_expenses }}</td>
+              </tr>
+              <tr>
+                <th>備註1</th>
+                <td>{{ detail_budget_sheets.remark_one }}</td>
+              </tr>
+              <tr>
+                <th>實際數量</th>
+                <td>{{ detail_budget_sheets.actual_quantity }}</td>
+              </tr>
+              <tr>
+                <th>實際單價</th>
+                <td>{{ detail_budget_sheets.actual_unit_price }}</td>
+              </tr>
+              <tr>
+                <th>已付款</th>
+                <td>{{ detail_budget_sheets.paid }}</td>
+              </tr>
+              <tr>
+                <th>付款人</th>
+                <td>{{ detail_budget_sheets.payer }}</td>
+              </tr>
+              <tr>
+                <th>備註2</th>
+                <td>{{ detail_budget_sheets.remark_two }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <a href="{% url 'budget:budget_sheet_click' %}" class="btn btn-primary-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+        </div><!-- /.row -->
+
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}

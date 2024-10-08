@@ -1,0 +1,286 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard儀錶板{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+
+<style>
+  * {
+    /* outline: 1px solid red; */
+  }
+
+  tr {
+    background-color: rgba(131, 137, 107, 0.3);
+    /* border: 1px solid rebeccapurple;
+    background-color: #b5b9e8; */
+    /* padding: 1px; */
+  }
+
+  div.dataTables_wrapper>.col-sm-12.col-md-6 {
+    background-color: #b5b9e8;
+    /* background-color:  rgba(131,137,107, 0.3); */
+  }
+
+  div.dt-container {
+    width: 800px;
+    margin: 0 auto;
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">列表 婚禮預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">列表 婚禮預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <section class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+        <div class="card">
+
+          <div class="card-header">
+            <h3 class="card-title">具有預設功能的數據表</h3>
+          </div>
+
+          <div class="card-body">
+            <!-- 放置消息框的位置 -->
+            {% if messages %}
+            {% for message in messages %}
+            <div>
+              {{ message|safe }} <!-- 確保這裡使用 safe 過濾器 -->
+            </div>
+            {% endfor %}
+            {% endif %}
+            
+            <p>
+              <a href="{% url 'budget:create_budget' %}">新增婚禮預算表</a>
+            </p>
+            <table id="example" class="display nowrap row-border" style="width:100%">
+              <thead>
+                <tr>
+                  <th rowspan="2" style="padding-bottom: 1rem;">完成</th>
+                  <th rowspan="2" style="padding-bottom: 1rem;">NO.</th>
+                  <th colspan="6">預估表</th>
+                  <th colspan="5">實際表</th>
+                </tr>
+                <tr>
+                  <th>類別</th>
+                  <th>支出項目</th>
+                  <th>預計數量</th>
+                  <th>預計單價</th>
+                  <th>貨幣</th>
+                  <th>預計費用支出</th>
+                  <!-- <th>備註1</th> -->
+                  <th>實際數量</th>
+                  <th>實際單價</th>
+                  <th>已付款</th>
+                  <th>付款人</th>
+                  <!-- <th>備註2</th> -->
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for event in latest_events %}
+                <tr>
+                  <td>
+                    <div class="d-flex justify-content-center">
+                      <input class="form-check paid-checkbox" type="checkbox" name="flexRadioDefault1{{ event.id }}"
+                        id="flexRadioDefault1{{ event.id }}" value="{{ event.id }}" data-paid="{{ event.paid }}">
+                    </div>
+                  </td>
+                  <td>{{ event.id }}</td>
+                  <td>{{ event.category }}</td>
+                  <td>{{ event.expenditure_items }}</td>
+                  <td>{{ event.estimated_quantity }}</td>
+                  <td>{{ event.estimated_unit_price }}</td>
+                  <td>{{ event.currency }}</td>
+                  <td>{{ event.estimated_expenses }}</td>
+                  <!-- <td>{{ event.remark_one }}</td> -->
+                  <td>{{ event.actual_quantity }}</td>
+                  <td>{{ event.actual_unit_price }}</td>
+                  <td>{{ event.paid }}</td>
+                  <td>{{ event.payer }}</td>
+                  <!-- <td>{{ event.remark_two }}</td> -->
+                  <td>
+                    <a href="{% url 'budget:detail_budget' event.id %}">
+                      <span class="glyphicon glyphicon-pencil">詳閱</span>
+                    </a>
+                    <a href="{% url 'budget:update_budget' event.id %}">
+                      <span class="glyphicon glyphicon-pencil">編輯</span>
+                    </a>
+                    <a href="{% url 'budget:delete_budget' event.id %}" class="delete-budget"
+                      onclick="return confirm('確定要刪除 編號 ' + {{ event.id }} + ' 這條記錄嗎？');">
+                      <span class="glyphicon glyphicon-pencil">刪除</span>
+                    </a>
+                  </td>
+
+                </tr>
+                {% endfor %}
+
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <td>預估總計</td> <!-- 空的列用於對齊預估表和實際表 -->
+                  <td colspan="6">{{ formatted_total_estimated_expenses }}元 / TWD</td> <!-- 顯示預估支出的小計 -->
+                  <td>實際總計</td> <!-- 空的列用於對齊預估表和實際表 -->
+                  <td colspan="5">{{ formatted_total_actual_expenses }} 元 / TWD</td> <!-- 顯示預估支出的小計 -->
+                </tr>
+                <tr>
+                  <td>選取付款<br>合計</td>
+                  <td colspan="9"><span id="selectedTotal">0</span> 元 / TWD</td>
+                </tr>
+              </tfoot>
+
+            </table>
+
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+
+<!-- 套版程式 -->
+<script>
+  $(document).ready(function () {
+    // 第一個
+    new DataTable('#example', {
+      // Footer callback
+      footerCallback: function (row, data, start, end, display) {
+        let api = this.api();
+
+        // Remove the formatting to get integer data for summation
+        let intVal = function (i) {
+          return typeof i === 'string'
+            ? i.replace(/[\$,]/g, '') * 1
+            : typeof i === 'number'
+              ? i
+              : 0;
+        };
+        // Total over all pages
+        total = api
+          .column(5)
+          .data()
+          .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+        // Total over this page
+        pageTotal = api
+          .column(5, { page: 'current' })
+          .data()
+          .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+        // Update footer
+        api.column(5).footer().innerHTML =
+          '$' + pageTotal + ' ( $' + total + ' total)';
+      },
+
+      // 分頁
+      paging: true,
+      // 滾動 - 水平和垂直
+      scrollX: true,
+      scrollY: 400,
+      // 多列排序
+      columnDefs: [
+        {
+          targets: [4],
+          orderData: [3, 2]
+        },
+        {
+          targets: [1],
+          orderData: [1, 0]
+        },
+      ],
+      orderMulti: false,//orderMulti
+      //語言 - 逗號小數位
+      language: {
+        decimal: ',',
+        thousands: '.'
+      },
+      colReorder: true,
+      autoFill: true,
+    });
+  })
+
+  // 第二個:監聽勾選框變化事件// 當文件內容完全載入後執行此函式
+  document.addEventListener('DOMContentLoaded', function () {
+    // 選取所有帶有 class 'paid-checkbox' 的複選框
+    const checkboxes = document.querySelectorAll('.paid-checkbox');
+    // 選取顯示總計的元素
+    const totalElement = document.getElementById('selectedTotal');
+
+    // 定義更新總計的函式
+    function updateTotal() {
+      let total = 0;
+      // 遍歷所有複選框，若複選框被選中，累加其 'data-paid' 屬性的值
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          total += parseFloat(checkbox.getAttribute('data-paid'));
+        }
+      });
+      // 更新顯示總計的元素內容，保留兩位小數
+      totalElement.textContent = total.toFixed(2);
+    }
+    // 為每個複選框添加變更事件監聽器，一旦狀態變更，呼叫更新總計的函式
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', updateTotal);
+    });
+  });
+
+  // 第三個: 數量
+  document.addEventListener('DOMContentLoaded', function () {
+    const table = document.getElementById('example');
+    table.addEventListener('input', function (e) {
+      if (e.target.classList.contains('quantity') || e.target.classList.contains('unit-price')) {
+        const row = e.target.closest('tr');
+        const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
+        const unitPrice = parseFloat(row.querySelector('.unit-price').value) || 0;
+        const total = quantity * unitPrice;
+        row.querySelector('.total').textContent = total.toFixed(2);
+      }
+    });
+  });
+
+  // ajax: 處理大量數據和優化性能。這種方法稱為"分頁加載"或"延遲加載"，它可以有效地減少初始加載時間並提高頁面響應速度。
+  function loadData(page) {
+    fetch(`/get_budget_data?page=${page}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        updateTable(data.data);
+        updatePagination(page, data.total_pages);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation 取得操作出現問題:', error);
+      });
+  }
+</script>
+
+{% endblock content %}

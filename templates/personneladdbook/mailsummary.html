@@ -1,0 +1,365 @@
+{% extends 'dashboard/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+  /* 全局樣式 */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+  }
+
+  .content-wrapper {
+    padding: 20px;
+  }
+
+  /* 卡片樣式 */
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
+
+  .card-header {
+    background-color: #4caf50;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  /* 表單樣式 */
+  .post-form {
+    padding: 30px;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .custom-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .custom-input:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  }
+
+  /* 按鈕樣式 */
+  button.btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  button.btn-success {
+    background-color: #4caf50;
+    border: none;
+  }
+
+  button.btn-success:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+
+  button.btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+
+  button.btn-primary:hover {
+    background-color: #0069d9;
+    transform: translateY(-2px);
+  }
+
+  button.btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+
+  button.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+  }
+
+  /* 表格樣式 */
+  table.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+
+  table.table th,
+  table.table td {
+    padding: 12px;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+  }
+
+  table.table thead th {
+    background-color: #e9ecef;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  table.table tbody tr:hover {
+    /* background-color: #f1f1f1; */
+  }
+
+  /* 標題和總數 */
+  .position-relative {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .total-count {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1rem;
+    color: #6c757d;
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .row .col-md-6 {
+      min-height: auto;
+    }
+
+    .total-count {
+      position: static;
+      display: block;
+      text-align: right;
+      margin-top: 10px;
+    }
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">發送郵件&列表信件通訊錄</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">發送郵件&列表信件通訊錄</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="container-fluid">
+    <div class="row">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">發送郵件</h3>
+          </div>
+          <div class="card-body">
+
+            <div class="col-md-12">
+              <form method="POST" class="post-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="send_email">
+
+                <div class="form-group row">
+                  <div class="col-12">
+                    <h4 class="text-center"><b>寄件</b></h4>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">標題:</label>
+                  <div class="col-sm-10">
+                    {{ send_email_form.subject|add_class:"custom-input" }}
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">留言訊息:</label>
+                  <div class="col-sm-10">
+                    {{ send_email_form.message|add_class:"custom-input" }}
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">收件者Email:</label>
+                  <div class="col-sm-10">
+                    {{ send_email_form.to_email|add_class:"custom-input" }}
+                  </div>
+                </div>
+
+                <div class="form-group row text-center">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-success">傳送郵件</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <hr>
+
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="position-relative">
+                    <h4 class="text-center mb-3"><b>公司人員郵件</b></h4>
+                  </div>
+                  <table class="table table-secondary" id="personalTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">編號</th>
+                        <th scope="col">信箱帳號</th>
+                        <th scope="col">操作</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for employee in personal_address_book %}
+                      <tr data-id="{{ employee.id }}">
+                        <td>{{ employee.id }}</td>
+                        <td>{{ employee.companyMailbox }}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-sm add-to-group" data-id="{{ employee.id }}">
+                            <i class="fa fa-plus"></i> 加入群組
+                          </button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="position-relative">
+                    <h4 class="text-center mb-3"><b>群組郵件</b></h4>
+                    <span class="total-count"><b>總數: {{ total_group_emails }}</b></span>
+                  </div>
+                  <table class="table table-secondary" id="groupTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">編號</th>
+                        <th scope="col">信箱帳號</th>
+                        <th scope="col">操作</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for group_email in group_emails %}
+                      <tr data-id="{{ group_email.employee.id }}">
+                        <td>{{ group_email.employee.id }}</td>
+                        <td>{{ group_email.employee.companyMailbox }}</td>
+                        <td>
+                          <form method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove">
+                            <input type="hidden" name="employee_id" value="{{ group_email.employee.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                              <i class="fa fa-minus"></i> 移除
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+
+</div><!-- /.content-wrapper -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // 加入群組
+    $('#personalTable').on('click', '.add-to-group', function () {
+      const employeeId = $(this).data('id');
+      const button = $(this);
+      const row = button.closest('tr');
+
+      $.ajax({
+        url: "{% url 'personnelAddBook:update_group_email' %}",
+        type: "POST",
+        data: {
+          action: 'add',
+          employee_id: employeeId,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.status === 'added') {
+            const newRow = row.clone();
+            newRow.find('button')
+              .removeClass('add-to-group btn-primary')
+              .addClass('remove-from-group btn-danger')
+              .html('<i class="fa fa-minus"></i> 移除');
+            $('#groupTable tbody').append(newRow);
+            row.remove();
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          console.error('Error: ' + errmsg);
+        }
+      });
+    });
+
+    // 移除群組
+    $('#groupTable').on('click', '.remove-from-group', function () {
+      const employeeId = $(this).data('id');
+      const button = $(this);
+      const row = button.closest('tr');
+
+      $.ajax({
+        url: "{% url 'personnelAddBook:update_group_email' %}",
+        type: "POST",
+        data: {
+          action: 'remove',
+          employee_id: employeeId,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.status === 'removed') {
+            const newRow = row.clone();
+            newRow.find('button')
+              .removeClass('remove-from-group btn-danger')
+              .addClass('add-to-group btn-primary')
+              .html('<i class="fa fa-plus"></i> 加入群組');
+            $('#personalTable tbody').append(newRow);
+            row.remove();
+          }
+        },
+        error: function (xhr, errmsg, err) {
+          console.error('Error: ' + errmsg);
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}

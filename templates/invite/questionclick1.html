@@ -1,0 +1,226 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %} 客戶邀請網站 填寫{{ title }} {% endblock title %}
+
+{% block content %}
+{% include "website/_include/navbar.html" %}
+<link rel="stylesheet" href="{% static 'invite/style.css' %}">
+
+<div class="jumbotron" style="margin-bottom:0px;">
+    <h1 class="display-4">Hello, 婚禮參加問卷</h1>
+    <p class="lead text-center">歡迎來到大雄跟瀞香婚禮</p>
+    <hr class="my-4">
+
+    <div class="card">
+        <div class="column">
+            <header class="heading">
+                <div class="super-heading">Your pleasant presence is requested!</div>
+                <h1 class="title">I
+                    <div class="mirrored">n</div>
+                    vitatio
+                    <div class="mirrored">n</div>
+                </h1>
+            </header>
+
+            <address class="party-address">
+                <p><i class="icon-map-marker"></i> 敬業三路20號111111</p>
+                <p><i class="icon-phone"></i> 02 2175 3456</p>
+            </address>
+
+            <time class="party-date">
+                <div class="party-day">18<sup>th</sup></div>
+                <div class="party-month text-capitalize">august</div>
+            </time>
+        </div><!-- column left -->
+
+
+        <section class="column">
+            <h2>您會參加婚宴嗎?</h2>
+            <input type="radio" name="coming" value="yes" id="comingYes" class="radio-coming--yes" checked/>
+            <label for="comingYes" class="label-coming--yes">當然, 準時出席!</label>
+
+            <input type="radio" name="coming" value="money-yes" id="givemoneyYes" class="radio-givemoney--yes"/>
+            <label for="givemoneyYes" class="label-givemoney--yes">無法出席，但禮到情意在!</label>
+
+            <input type="radio" name="coming" value="no" id="notattendingNo" class="radio-notattending--yes"/>
+            <label for="notattendingNo" class="label-notattending--no">抱歉, 不克前去</label>
+
+            <form method="POST" action="{% url 'invite:questionclick_view' %}" id="theFormA" class="bringing-form">
+                {% csrf_token %}
+                <fieldset class="bringing">
+                    <h3>會攜伴參加嗎?</h3>
+                    <input type="radio" name="bringing" id="bringingYes" value="yes" style="display: none;"
+                           class="radio-bringing--yes"
+                           checked/>
+                    <label for="bringingYes" class="label-bringing--yes" style="display: none;">Yes!</label>
+                    <div class="is_bringing" id="bringing">
+                        <h4>快點來參加! 幫我填寫參加人姓名!!!</h4>
+                        <p class="subtitle">歡迎大家共襄盛舉!!!</p>
+
+                        <div class="is_personal-info" id="personal-info">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="inputicon" id="basic-addon1">
+<!--                                        <i class="fa fa-pencil fa-fw fa-lg" aria-hidden="true"></i>-->
+                                        <img src="{% static 'image/pencil.png' %}" width="45" height="45">
+                                    </span>
+                                </div>
+                                <input name="name" type="text" placeholder="姓名" aria-label="Username"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="inputicon" id="basic-addon1">
+<!--                                        <i class="fa fa-phone fa-fw fa-lg" aria-hidden="true"></i>-->
+                                        <img src="{% static 'image/phone.png' %}" width="45" height="45">
+                                    </span>
+                                </div>
+                                <input name="phone" type="text" placeholder="連絡電話" aria-label="Phone"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                            <p class="h12">希望以什麼方式收到喜帖? (擇一填寫)</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="inputicon" id="basic-addon1">
+<!--                                    <i class="fa fa-map-marker fa-fw fa-lg" aria-hidden="true"></i>-->
+                                    <img src="{% static 'image/placeholder.png' %}" width="45" height="45">
+                                </span>
+                                </div>
+                                <input name="address" type="text"
+                                       placeholder="請輸入地址&nbsp;&nbsp;ex: 104 台北市敬業路三段5號10樓"
+                                       aria-label="address" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="inputicon" id="basic-addon1">
+<!--                                    <i class="fa fa-envelope-o fa-fw fa-lg" aria-hidden="true"></i>-->
+                                    <img src="{% static 'image/address.png' %}" width="45" height="45">
+                                </span>
+                                </div>
+                                <input name="email" type="text"
+                                       placeholder="請輸入郵件帳號&nbsp;&nbsp;ex: abc123@gmail.com"
+                                       aria-label="E-mail" aria-describedby="basic-addon1">
+                            </div>
+
+                            <p class="h12">請問認識新人哪一位?</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="inputicon" id="basic-addon1">
+<!--                                        <i class="fa fa-user-o fa-fw fa-lg" aria-hidden="true"></i>-->
+                                        <img src="{% static 'image/user.png' %}" width="45" height="45">
+
+                                    </span>
+                                </div>
+                                <div class="radio-div" style="display: flex; align-items: center;">
+                                    <div class="form-check form-check-inline">
+                                        <input name="know" value="新郎" class="form-check-input" type="radio"
+                                               id="inlineRadio1">
+                                        <label class="form-check-label" for="inlineRadio1">
+                                            <i class="fa fa-male" aria-hidden="true"></i>
+                                            新郎
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="know" value="新娘" class="form-check-input" type="radio"
+                                               id="inlineRadio2">
+                                        <label class="form-check-label" for="inlineRadio2">
+                                            <i class="fa fa-female" aria-hidden="true"></i>
+                                            新娘
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="know" value="共同朋友" class="form-check-input" type="radio"
+                                               id="inlineRadio3">
+                                        <label class="form-check-label" for="inlineRadio3">
+                                            <i class="fa fa-users" aria-hidden="true"></i>
+                                            共同朋友
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="h12">您選擇飲食是?</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="inputicon" id="basic-addon1">
+<!--                                    <i class="fa fa-cutlery fa-fw fa-lg" aria-hidden="true"></i>-->
+                                    <img src="{% static 'image/diet.png' %}" width="45" height="45">
+
+                                </span>
+                                </div>
+                                <div class="radio-div" style="display: flex; align-items: center;">
+                                    <div class="form-check form-check-inline">
+                                        <input name="diet" value="葷食" class="form-check-input" type="radio"
+                                               id="inlineRadio1">
+                                        <label class="form-check-label" for="inlineRadio1">葷食</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="diet" value="素食" class="form-check-input" type="radio"
+                                               id="inlineRadio2">
+                                        <label class="form-check-label" for="inlineRadio2">素食</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="h12">您需要嬰兒座椅?</p>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="inputicon" id="basic-addon1">
+                                    <img src="{% static 'image/high-chair.png' %}" width="45" height="45">
+                                </span>
+                                </div>
+                                <div class="radio-div" style="display: flex; align-items: center;">
+                                    <div class="form-check form-check-inline">
+                                        <input name="baby_seat" value="0" class="form-check-input" type="radio"
+                                               id="inlineRadio0">
+                                        <label class="form-check-label" for="inlineRadio0">0</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="baby_seat" value="1" class="form-check-input" type="radio"
+                                               id="inlineRadio1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="baby_seat" value="2" class="form-check-input" type="radio"
+                                               id="inlineRadio2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="baby_seat" value="3" class="form-check-input" type="radio"
+                                               id="inlineRadio3">
+                                        <label class="form-check-label" for="inlineRadio3">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input name="baby_seat" value="4" class="form-check-input" type="radio"
+                                               id="inlineRadio4">
+                                        <label class="form-check-label" for="inlineRadio4">4</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <input name="bringing" type="radio" value="no" id="bringingNo" class="radio-bringing--no"
+                           style="display: none;"/>
+                    <label for="bringingNo" class="label-bringing--no" style="display: none">沒有， 我一人去參加喜宴。</label>
+
+                    <div class="mb-3">
+                        <button class="send-card-button" id="theButtonA">Alrighty!</button>
+                        <div id="thankyou" class="thank-you"></div>
+                    </div>
+                </fieldset>
+            </form>
+
+
+            {% include 'invite/givemoneyclick.html' %}
+            {% include 'invite/notattendclick.html' %}
+
+
+        </section><!-- column right -->
+    </div><!-- card -->
+
+
+</div>
+
+{% include "website/_include/footer.html" %}
+{% endblock %}

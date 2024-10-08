@@ -1,0 +1,269 @@
+{% load static %}
+<style>
+  .form-control {
+    height: calc(2.55rem + 2px) !important;
+  }
+</style>
+
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-light">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="{% url 'dash:dashboard' %}" class="nav-link">首頁 Home</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="{% url 'dash:d_aboutus' %}" class="nav-link">關於我About Us</a>
+    </li>
+  </ul>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+    <!-- Navbar Search -->
+    <li class="nav-item">
+      <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <i class="fas fa-search"></i>
+      </a>
+      <div class="navbar-search-block">
+        <form class="form-inline">
+          <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-navbar" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+              <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+
+    <!-- Messages Dropdown Menu -->
+    <!-- <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="far fa-comments"></i>
+        <span id="unread-count" class="badge badge-danger navbar-badge">3</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <a href="#" class="dropdown-item">
+          <div class="media">
+            <img src="{% static 'dist/img/user1-128x128.jpg' %}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+            <div class="media-body">
+              <h3 class="dropdown-item-title">
+                Brad Diesel
+                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+              </h3>
+              <p class="text-sm">Call me whenever you can...</p>
+              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">
+          <div class="media">
+            <img src="{% static 'dist/img/user8-128x128.jpg' %}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+            <div class="media-body">
+              <h3 class="dropdown-item-title">
+                John Pierce
+                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+              </h3>
+              <p class="text-sm">I got your message bro</p>
+              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">
+          <div class="media">
+            <img src="{% static 'dist/img/user3-128x128.jpg' %}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+            <div class="media-body">
+              <h3 class="dropdown-item-title">
+                Nora Silvester
+                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+              </h3>
+              <p class="text-sm">The subject goes here</p>
+              <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+      </div>
+    </li> -->
+
+    <!-- Notifications Dropdown Menu -->
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#" id="notificationDropdown">
+        <i class="far fa-bell"></i>
+        <span class="badge badge-warning navbar-badge" id="total-notifications">0</span>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <span class="dropdown-item dropdown-header" id="total-notifications-header">總共 0 則通知</span>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'personnelAddBook:email_list' %}" class="dropdown-item">
+          <i class="fas fa-envelope mr-2"></i>
+          <span id="unread-email-count">0 email messages</span>
+          <span class="float-right text-muted text-sm" id="latest-email-time">N/A</span>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="{% url 'personnelAddBook:personnel_address_book' %}" class="dropdown-item">
+          <i class="fas fa-users mr-2"></i>
+          <span id="total-group-emails">0 group friend</span>
+          <span class="float-right text-muted text-sm" id="latest-group-email-time">N/A</span>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item dropdown-footer">查看所有通知</a>
+      </div>
+    </li>
+
+    <!-- 螢幕main縮放大小 -->
+    <li class="nav-item">
+      <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <i class="fas fa-expand-arrows-alt"></i>
+      </a>
+    </li>
+
+    <!-- adminLTE3 的套件使用 -->
+    <!-- <li class="nav-item">
+      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+        <i class="fas fa-th-large"></i>
+      </a>
+    </li> -->
+
+    <!-- login/out -->
+    <li class="nav-item dropdown user user-menu">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+        {% if user.avatar %} <!-- 沒照片登入就會錯誤，要添加 -->
+        <img src="{{ user.avatar.url }}" class="user-image" alt="User Image">
+        {% else %}
+        <img src="{% static 'path/to/default/image.jpg' %}" class="img-circle" alt="Default User Image">
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
+        <span class="hidden-xs">
+          {{user.first_name}} {{user.last_name}}
+        </span>
+        {% endif %}
+      </a>
+      <ul class="dropdown-menu">
+        <li class="user-header">
+          {% if user.is_authenticated %}
+          {% if user.avatar %}
+          <img src="{{ user.avatar.url }}" class="img-circle" alt="User Image">
+          {% else %}
+          <img src="{% static 'dist/img/avatar5.png' %}" class="img-circle" alt="User Image">
+          {% endif %}
+          <p>
+          <div>使用者: {{user.first_name}} {{user.last_name}}</div>
+          <small>{{ user.get_username }}</small>
+          </p>
+          {% endif %}
+        </li>
+        <li class="user-body">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-4 text-center p-1">
+                <a href="#">Followers</a>
+              </div>
+              <div class="col-4 text-center p-1">
+                <a href="#">Sales</a>
+              </div>
+              <div class="col-4 text-center p-1">
+                <a href="#">Friends</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="user-footer">
+          <div class="pull-left">
+            <a href="#" class="btn btn-default btn-flat">Profile</a>
+          </div>
+          <div class="pull-right">
+            <a href="{% url 'account:signout' %}" class="btn btn-default btn-flat">Sign out</a>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</nav>
+<!-- /.navbar -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script>
+  $(document).ready(function () {
+    function getNotificationInfo() {
+      $.ajax({
+        url: '{% url "personnelAddBook:get_notification_info" %}',
+        success: function (data) {
+          console.log(data);  // 檢查返回的數據
+
+          // 更新未讀郵件數量
+          $('#unread-email-count').text(data.unread_email_count + ' email messages');
+          $('#total-notifications').text(data.total_notifications);
+          $('#total-notifications-header').text('總共 ' + data.total_notifications + ' 則通知');
+
+          // 更新最新郵件的時間顯示
+          if (data.latest_email && data.latest_email.received_at) {
+            $('#latest-email-time').text(moment(data.latest_email.received_at).fromNow());
+          } else {
+            $('#latest-email-time').text('N/A');
+          }
+
+          // 更新最新 GroupEmail 的時間顯示
+          if (data.latest_group_email && data.latest_group_email.added_at) {
+            $('#latest-group-email-time').text(moment(data.latest_group_email.added_at).fromNow());
+          } else {
+            $('#latest-group-email-time').text('N/A');
+          }
+
+          // 更新總群組郵件數量
+          $('#total-group-emails').text(data.total_group_emails + ' group friend');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching notification info:', error);
+        }
+      });
+    }
+
+    // 初次獲取通知信息
+    getNotificationInfo();
+
+    // 每 30 秒獲取一次通知信息
+    setInterval(getNotificationInfo, 30000);
+
+    // 處理郵件標記為已讀的功能
+    $('.email-link').click(function (e) {
+      e.preventDefault();
+      var emailId = $(this).data('email-id');
+      var row = $(this).closest('tr');
+      var statusSpan = row.find('.read-status');
+
+      $.ajax({
+        url: '{% url "personnelAddBook:mark_as_read" %}',
+        method: 'POST',
+        data: {
+          email_id: emailId,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.success) {
+            statusSpan.text('已讀');
+            row.removeClass('unread').addClass('read');
+            // 更新通知信息
+            getNotificationInfo();
+          }
+        }
+      });
+    });
+  });
+</script>

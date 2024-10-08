@@ -1,0 +1,109 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard儀錶板{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">貨幣列表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">列表 貨幣</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <section class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">具有預設功能的數據表</h3>
+          </div>
+
+          <div class="card-body">
+            <!-- 放置消息框的位置 -->
+            {% if messages %}
+            {% for message in messages %}
+            <div>
+              {{ message|safe }} <!-- 確保這裡使用 safe 過濾器 -->
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <p>
+              <a href="{% url 'budget:create_currency' %}">新增貨幣</a>
+            </p>
+            <div class="table-responsive">
+              <div class="overflow">
+                <table id="example1" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>貨幣名稱</th>
+                      <th>貨幣代碼</th>
+                      <th>貨幣符號</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for event in list_currency %}
+                    <tr>
+                      <td class="">{{ forloop.counter }}</td>
+                      <td>{{ event.name }}</td>
+                      <td>{{ event.code }}</td>
+                      <td>{{ event.symbol }}</td>
+                      <td>
+                        <a href="{% url 'budget:detail_currency' event.id %}">
+                          <span class="glyphicon glyphicon-pencil">詳閱</span>
+                        </a>
+                        <a href="{% url 'budget:update_currency' event.id %}">
+                          <span class="glyphicon glyphicon-pencil">編輯</span>
+                        </a>
+                        <a href="{% url 'budget:delete_currency' event.id %}" class="delete-budget"
+                          onclick="return confirm('確定要刪除 編號 ' + {{ event.id }} + ' 這條記錄嗎？');">
+                          <span class="glyphicon glyphicon-pencil">刪除</span>
+                        </a>
+                      </td>
+
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>No.</th>
+                      <th>貨幣名稱</th>
+                      <th>貨幣代碼</th>
+                      <th>貨幣符號</th>
+                      <th>操作</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div><!-- /. overflow -->
+            </div><!-- /. table-responsive -->
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+
+{% endblock content %}

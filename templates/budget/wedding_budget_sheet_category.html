@@ -1,0 +1,108 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard儀錶板{% endblock title %}
+
+{% block content %}
+<style>
+  #example.table-hover tbody tr:hover {
+    background-color: #d0eaff;
+    /* 這是淺藍色，你可以根據需要修改 */
+  }
+
+ 
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">類別列表 新婚預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">類別列表 新婚預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">具有預設功能的數據表</h3>
+          </div>
+
+          <div class="card-body">
+            <!-- 放置消息框的位置 -->
+            {% if messages %}
+            {% for message in messages %}
+            <div>
+              {{ message|safe }} <!-- 確保這裡使用 safe 過濾器 -->
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <p>
+              <a href="{% url 'budget:create_category' %}">新增類別</a>
+            </p>
+
+            <div class="table-responsive">
+              <div class="overflow">
+                <table id="example1" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>類別名稱</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for event in list_category %}
+                    <tr role="row" class="odd">
+                      <td class="">{{ forloop.counter }}</td>
+                      <td>{{ event.name }}</td>
+                      <td>
+                        <a href="{% url 'budget:detail_category' event.id %}">
+                          <span class="glyphicon glyphicon-pencil">詳閱</span>
+                        </a>
+                        <a href="{% url 'budget:update_category' event.id %}">
+                          <span class="glyphicon glyphicon-pencil">編輯</span>
+                        </a>
+                        <a href="{% url 'budget:delete_category' event.id %}" class="delete-budget"
+                          onclick="return confirm('確定要刪除 編號 ' + {{ event.id }} + ' 這條記錄嗎？');">
+                          <span class="glyphicon glyphicon-pencil">刪除</span>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>No.</th>
+                      <th>類別名稱</th>
+                      <th>操作</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div><!-- /# overflow -->
+            </div><!-- /. table-responsive -->
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock content %}

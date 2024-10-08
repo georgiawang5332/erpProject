@@ -1,0 +1,306 @@
+<!-- {% extends 'dashboard/base.html' %} -->
+<!-- {% load static %} -->
+
+<!-- {% block title %}Dashboard儀錶板{% endblock title %} -->
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+
+<style>
+  tr {
+    border: 1px solid rebeccapurple;
+    background-color: #b5b9e8;
+    /* padding: 1px; */
+  }
+
+  div.dataTables_wrapper>.col-sm-12.col-md-6 {
+    background-color: #b5b9e8;
+  }
+
+  div.dt-container {
+    width: 800px;
+    margin: 0 auto;
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0"></h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">我測試 v2</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <table id="example" class="display nowrap row-border" style="width:100%">
+          <!-- <thead>
+            <tr>
+              <th rowspan="2" width="15%">Name</th>
+              <th colspan="2">Position</th>
+              <th colspan="3">Contact</th>
+            </tr>
+            <tr>
+              <th colspan="3" data-dt-order="disable">HR info</th>
+              <th colspan="2">Direct</th>
+            </tr>
+          </thead> -->
+          <thead>
+            <tr>
+              <th rowspan="2" style="padding-bottom: 1rem;">完成</th>
+              <th rowspan="2" style="padding-bottom: 1rem;">NO.</th>
+              <th colspan="7">預估表</th>
+              <th colspan="6">實際表</th>
+            </tr>
+            <tr>
+              <!-- <th data-dt-order="disable">項目編號</th> -->
+              <th>類別</th>
+              <th>支出項目</th>
+              <th>預計數量</th>
+              <th>預計單價</th>
+              <th>貨幣</th>
+              <th>預計費用支出</th>
+              <th>備註1</th>
+              <th>實際數量</th>
+              <th>實際單價</th>
+              <th>已付款</th>
+              <th>付款人</th>
+              <th>備註2</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in latest_events %}
+            <tr>
+              <!-- <td class="sorting_1">{{ forloop.counter }}</td> -->
+              <td>
+                <div class="d-flex justify-content-center">
+                  <input class="form-check" type="checkbox" name="flexRadioDefault1{{ event.id }}"
+                    id="flexRadioDefault1{{ event.id }}" value="V">
+                </div>
+              </td>
+              <td>{{ event.id }}</td>
+              <td>{{ event.category }}</td>
+              <td>{{ event.expenditure_items }}</td>
+              <td>{{ event.estimated_quantity }}</td>
+              <td>{{ event.estimated_unit_price }}</td>
+              <td>{{ event.currency }}</td>
+              <td>{{ event.estimated_expenses }}</td>
+              <td>{{ event.remark_one }}</td>
+              <td>{{ event.actual_quantity }}</td>
+              <td>{{ event.actual_unit_price }}</td>
+              <td>{{ event.paid }}</td>
+              <td>{{ event.payer }}</td>
+              <td>{{ event.remark_two }}</td>
+              <td>
+                <a href="">詳閱</a></a>
+                <a href="">
+                  <span class="glyphicon glyphicon-pencil">編輯</span>
+                </a>
+                <a href="">刪除</a>
+              </td>
+
+            </tr>
+            {% endfor %}
+
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td>預估總計</td> <!-- 空的列用於對齊預估表和實際表 -->
+              <td colspan="7">{{ formatted_total_estimated_expenses }}元 / TWD</td> <!-- 顯示預估支出的小計 -->
+              <td>實際總計</td> <!-- 空的列用於對齊預估表和實際表 -->
+              <td colspan="6">{{ formatted_total_actual_expenses }} 元 / TWD</td> <!-- 顯示預估支出的小計 -->
+            </tr>
+            <tr>
+              <td>選取付款<br>合計</td>
+              <td colspan="15" id="totalActualExpenses">0</td>
+            </tr>
+          </tfoot>
+
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script>
+  $(document).ready(function () {
+    new DataTable('#example', {
+      // Footer callback
+      footerCallback: function (row, data, start, end, display) {
+        let api = this.api();
+
+        // Remove the formatting to get integer data for summation
+        let intVal = function (i) {
+          return typeof i === 'string'
+            ? i.replace(/[\$,]/g, '') * 1
+            : typeof i === 'number'
+              ? i
+              : 0;
+        };
+
+        // Total over all pages
+        total = api
+          .column(5)
+          .data()
+          .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+        // Total over this page
+        pageTotal = api
+          .column(5, { page: 'current' })
+          .data()
+          .reduce((a, b) => intVal(a) + intVal(b), 0);
+
+        // Update footer
+        api.column(5).footer().innerHTML =
+          '$' + pageTotal + ' ( $' + total + ' total)';
+      },
+
+
+      // 分頁
+      paging: true,
+      // 滾動 - 水平和垂直
+      scrollX: true,
+      scrollY: 400,
+      // 多列排序
+      columnDefs: [
+        {
+          targets: [4],
+          orderData: [3, 2]
+        },
+        {
+          targets: [1],
+          orderData: [1, 0]
+        },
+        // {
+        //   targets: [4],
+        //   orderData: [4, 0]
+        // }
+      ],
+      orderMulti: false,//orderMulti
+      //語言 - 逗號小數位
+      language: {
+        decimal: ',',
+        thousands: '.'
+      },
+      colReorder: true,
+      autoFill: true,
+
+
+
+    });
+  })
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // 初始化總和為 0
+    var totalActualExpenses = 0;
+
+    // 為 checkbox 按鈕添加點擊事件監聽器
+    $('input[type="checkbox"]').on('click', function () {
+      // 重置總實際支付金額
+      totalActualExpenses = 0;
+
+      // 遍歷所有被選中的 checkbox 按鈕
+      $('input[type="checkbox"]:checked').each(function () {
+        // 獲取被選中 checkbox 按鈕所在行
+        var row = $(this).closest('tr');
+        console.log(row);
+
+        // 獲取 "已付款" 金額並轉換為數字，然後加到總和中
+        var actualPaid = row.find('td:eq(11)').text().trim(); // 假設 "已付款" 在第 12 列
+        console.log(actualPaid);
+
+        // 去除金額中的非數字字符並轉換為浮點數
+        var amount = parseFloat(actualPaid.replace(/[^\d.-]/g, '')) || 0;
+        totalActualExpenses += amount;
+        console.log(amount);
+      });
+
+      // 格式化總金額並更新顯示
+      var formattedTotal = totalActualExpenses.toLocaleString('zh-TW', { style: 'currency', currency: 'TWD' }) + " 元 / TWD";
+      // 更新顯示的總金額
+      $('#totalActualExpenses').text(formattedTotal);
+    });
+
+    // 2.新增預算頁面 : 實際數量*實際單價 = 總計
+    // 監聽價格和數量輸入的變化
+    $('.ticket').on('input', '.price, .quantity', function () {
+      var price = +$(this).closest('.ticket').find('.price').val() || 0;
+      var quantity = +$(this).closest('.ticket').find('.quantity').val() || 1;
+      var total = price * quantity;
+      $(this).closest('.ticket').find('.total').val(total.toFixed(2));
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    // 初始化總和為 0
+    var totalActualExpenses = 0;
+
+    // 為 radio 按鈕添加點擊事件監聽器
+    $('input[type="checkbox"]').on('click', function () {
+      // 重置總實際支付金額
+      totalActualExpenses = 0;
+
+      // 遍歷所有被選中的 radio 按鈕
+      $('input[type="checkbox"]:checked').each(function () {
+        // 獲取被選中 radio 按鈕所在行
+        var row = $(this).closest('tr');
+        console.log(row)
+
+        // 獲取實際支付金額並轉換為數字，然後加到總和中
+        var actualPaid = row.find('td:eq(11)').text().trim(); // 實際支付在第 12列
+        console.log(actualPaid)
+        // 移除編號前綴
+        // actualPaid = actualPaid.split('. ')[1];
+        // console.log(actualPaid)
+        // 去除金額中的非數字字符並轉換為浮點數
+        var amount = parseFloat(actualPaid.replace(/[^\d.]/g, '')) || 0;
+        totalActualExpenses += amount;
+        console.log(amount)
+      });
+
+      // 格式化總金額並更新顯示
+      var formattedTotal = totalActualExpenses.toLocaleString('zh-tw', { style: 'currency', currency: 'TWD' }) + " 元 / TWD";
+      // 更新顯示的總金額
+      $('#totalActualExpenses').text(formattedTotal);
+    });
+
+    // 2.新增預算頁面 : 實際數量*實際單價 = 總計
+    // 監聽價格和數量輸入的變化
+    $('.ticket').on('input', '.price, .quantity', function () {
+      var price = +$(this).closest('.ticket').find('.price').val() || 0;
+      var quantity = +$(this).closest('.ticket').find('.quantity').val() || 1;
+      var total = price * quantity;
+      $(this).closest('.ticket').find('.total').val(total.toFixed(2));
+    });
+
+
+  });
+
+</script>
+{% endblock content %}

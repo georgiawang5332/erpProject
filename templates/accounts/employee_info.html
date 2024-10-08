@@ -1,0 +1,136 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard儀錶板{% endblock title %}
+
+{% block content %}
+<style>
+  /* * {outline: 1px solid red;} */
+
+  #example.table-hover tbody tr:hover {
+    background-color: #d0eaff;
+    /* 這是淺藍色，你可以根據需要修改 */
+  }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">員工個人資料</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">列表 員工個人資料</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <section class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+        <div class="card">
+          
+          <div class="card-header">
+            <h3 class="card-title">具有預設功能的數據表</h3>
+          </div>
+
+          <div class="card-body">
+            <!-- 放置消息框的位置 -->
+            {% if messages %}
+            {% for message in messages %}
+            <div>
+              {{ message|safe }} <!-- 確保這裡使用 safe 過濾器 -->
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <p>
+              <a href="{% url 'account:create_emp_info_click' %}">新增員工資料</a>
+            </p>
+            <div class="table-responsive">
+              <div style="max-height: 500px; overflow-y: auto;">
+                <table id="example" class="table table-striped table-hover table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>信箱</th>
+                      <th>名稱</th>
+                      <th>名字</th>
+                      <th>姓氏</th>
+                      <th>頭像</th>
+                      <th>加入日期</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for user in page_obj %}
+                    <tr>
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.first_name }}</td>
+                      <td>{{ user.last_name }}</td>
+                      <td>{{ user.avatar }}</td>
+                      <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+                      <td>
+                        <a href="{% url 'account:detail_emp_info_click' user.id %}">
+                          <span class="glyphicon glyphicon-eye-open">詳閱</span>
+                        </a>
+                        <a href="{% url 'account:update_emp_info_click' user.id %}">
+                          <span class="glyphicon glyphicon-pencil">編輯</span>
+                        </a>
+                        <a href="{% url 'account:del_emp_info_click' user.id %}" class="delete-user"
+                          onclick="return confirm('確定要刪除 {{ user.username }} 的帳戶嗎？');">
+                          <span class="glyphicon glyphicon-trash">刪除</span>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div><!-- /.table-responsive -->
+            </div><!-- /#example -->
+
+            {% if page_obj.has_other_pages %}
+            <nav>
+              <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% endif %}
+                {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                <li class="active"><span>{{ i }}</span></li>
+                {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+            {% endif %}
+
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock content %}

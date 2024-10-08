@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">詳閱 貨幣</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">詳閱 貨幣</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">婚禮預算表</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">新增 婚禮預算表</li>
+          </ol>
+        </nav> -->
+
+        <div class="card">
+          <div class="card-body">
+
+            <table class="table table-bordered">
+              <tr>
+                <th>項目編號</th>
+                <td>{{ detail_currency.id }}</td>
+              </tr>
+              <tr>
+                <th>貨幣名稱</th>
+                <td>{{ detail_currency.name }}</td>
+              </tr>
+              <tr>
+                <th>貨幣代碼</th>
+                <td>{{ detail_currency.code }}</td>
+              </tr>
+              <tr>
+                <th>貨幣符號</th>
+                <td>{{ detail_currency.symbol }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <a href="{% url 'budget:list_currency' %}" class="btn btn-primary-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+        </div><!-- /.row -->
+
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}

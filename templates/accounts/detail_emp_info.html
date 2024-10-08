@@ -1,0 +1,112 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">詳閱 員工個人資料</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">詳閱 員工個人資料</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">詳閱 員工個人資料</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              詳閱 員工個人資料</li>
+          </ol>
+        </nav> -->
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tr>
+                <th>項目編號</th>
+                <td>{{ detail_emp_info.id }}</td>
+              </tr>
+              <!-- <tr>
+                  <th>群組</th>
+                  <td>{{ detail_emp_info.groups }}</td>
+                </tr>
+                <tr>
+                  <th>使用者權限</th>
+                  <td>{{ detail_emp_info.user_permissions }}</td>
+                </tr>
+                <tr> -->
+              <th>信箱</th>
+              <td>{{ detail_emp_info.email }}</td>
+              </tr>
+              <tr>
+                <th>名稱</th>
+                <td>{{ detail_emp_info.username }}</td>
+              </tr>
+              <tr>
+                <th>姓氏</th>
+                <td>{{ detail_emp_info.first_name }}</td>
+              </tr>
+              <tr>
+                <th>名字</th>
+                <td>{{ detail_emp_info.last_name }}</td>
+              </tr>
+              <!-- <tr>
+                  <th>頭像</th>
+                  <td>{{ detail_emp_info.avatar }}</td>
+                </tr> -->
+              <tr>
+                <th>頭像</th>
+                <td>
+                  {% if detail_emp_info.avatar %}
+                  <img src="{{ detail_emp_info.avatar.url }}" alt="頭像" class="rounded-circle"
+                    style="width: 150px; height: 150px;" />
+                  {% else %}
+                  <p>未上傳頭像</p>
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>員工狀況</th>
+                <td>{{ detail_emp_info.is_staff }}</td>
+              </tr>
+              <tr>
+                <th>積極的</th>
+                <td>{{ detail_emp_info.is_active }}</td>
+              </tr>
+              <tr>
+                <th>加入日期</th>
+                <td>{{ detail_emp_info.date_joined }}</td>
+              </tr>
+              <tr>
+                <th>最後更新</th>
+                <td>{{ detail_emp_info.last_updated }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <a href="{% url 'account:list_emp_info_click' %}" class="btn btn-primary-sm">
+              <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+          </div>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}

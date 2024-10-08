@@ -1,0 +1,113 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+  .input-group-text {
+    width: 8rem;
+    /* 根據需求調整這個寬度 */
+    justify-content: center;
+    /* 讓文字在span內居中 */
+  }
+</style>
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">編輯 貨幣</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">編輯 貨幣</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">Income</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Edit Income
+            </li>
+          </ol>
+        </nav> -->
+
+        <div class="card">
+          <div class="card-body">
+            <form action="{% url 'budget:update_currency' id=update_currency.id %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">項目編號</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="id" value="{{edit_budget_sheets.id}}"
+                    readonly />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">貨幣名稱</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="name" value="{{update_currency.name}}" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">貨幣代碼</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="code"
+                    value="{{update_currency.code}}" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">貨幣符號</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="symbol"
+                    value="{{update_currency.symbol}}" />
+                </div>
+              </div>
+              <!-- <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">備註1</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="remark_one"
+                    value="{{edit_budget_sheets.remark_one}}" />
+                </div>
+              </div> -->
+
+              <input type="submit" value="更新資料" class="btn btn-primary btn-primary-sm" />
+            </form>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <a href="{% url 'budget:list_currency' %}" class="btn btn-primary-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}

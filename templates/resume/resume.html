@@ -1,0 +1,723 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %} 履歷表 {% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  @charset "UTF-8";
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+  * {
+    /* outline: 1px solid red; */
+    list-style-type: none
+  }
+
+  /* 履歷表 Resume START */
+  .content-wrapper {
+    background-color: #fcc67f;
+  }
+
+  .section {
+    padding-bottom: 2%;
+    padding-top: 0%;
+  }
+
+  div.section h6 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  h6 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .1);
+  }
+
+  .listCertificate {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .listCertificate div {
+    margin-bottom: 40px;
+    /* 增加兩個圖片之間的垂直間距 */
+  }
+
+  .listCertificate div img {
+    width: 100%;
+    /* 設置圖片寬度 */
+    height: auto;
+    /* 保持圖片的縱橫比 */
+    padding-left: 11%;
+  }
+
+
+  /* 履歷表 Resume END */
+
+
+  /* 區塊陰影及高光效果 */
+  div.black-shadow {
+    box-shadow: 10px 10px 10px -5px rgba(1, 65, 39, 0.3);
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .white-emboss {
+    box-shadow: -6px -6px 16px rgba(255, 255, 255, 1);
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* border: 1px solid #014127; */
+  }
+
+  /* 文字陰影 */
+  div.black-shadow h3 {
+    /* border-radius: 20%; */
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+    text-shadow: 2px 2px rgba(255, 255, 255, 0.75);
+    font-weight: 700;
+  }
+
+  /*  */
+  /* @mixin模組化 */
+  html,
+  body {
+    margin: 0 auto;
+    /* padding: 2%; */
+    width: 100%;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    background-color: #fcc67f;
+    color: #014127;
+    /* box-sizing: border-box; */
+    font-family: "Roboto", "Noto Sans TC";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2%;
+  }
+
+  /* 標題旁邊一槓 */
+  h2::after {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 4px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #014127, #fcc67f);
+
+    margin-left: 2%;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  h4 {
+    font-weight: 700;
+    opacity: 0.7;
+    margin-top: 8%;
+  }
+
+  a {
+    color: initial;
+    text-decoration: initial;
+  }
+
+  .resume {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    border: solid 4px #014127;
+    border-radius: 50px;
+    padding: 2%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+    position: relative;
+  }
+
+  .resume:hover {
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.2);
+    transform: translate(-2px, -2px);
+  }
+
+  .deco {
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(-60deg, #014127, #FFCC71);
+  }
+
+  .infomation {
+    text-align: center;
+    border: solid 1px #014127;
+    border-radius: 200px 200px 50px 50px;
+    padding: 2%;
+    background-color: #fff1d7;
+    box-shadow: 8px 8px 0;
+    position: relative;
+  }
+
+  .avator {
+    margin: 0 auto;
+    border: solid 1px #014127;
+    width: 24vmin;
+    height: 24vmin;
+    border-radius: 50%;
+  }
+
+  .jobPosition {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #ffba3e;
+    margin: 4% 0;
+    padding: 4%;
+  }
+
+  ul.contact,
+  div.about,
+  div.contact,
+  div.follow {
+    margin: 6% 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  a.btn {
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    border-radius: 200px;
+    margin-top: 16%;
+    padding: 8%;
+    transition: 0.5s;
+  }
+
+  a.btn:hover {
+    background-color: #333333;
+  }
+
+  .skillsTotal {
+    display: flex;
+    box-sizing: border-box;
+    border-radius: 20px;
+  }
+
+  .skillsTotal .block {
+    width: 50%;
+    margin-right: 2%;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+
+  .list li {
+    box-sizing: border-box;
+    width: 20%;
+    padding: 1%;
+    margin-right: 4%;
+    margin-bottom: 2%;
+    text-align: center;
+  }
+
+  .listSummary li {
+    border: solid 0.85px #014127;
+  }
+
+  .listSkill li {
+    font-weight: 500;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    text-align: center;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .skill1 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/archive/c/c3/20220730085403%21Python-logo-notext.svg) no-repeat center center/cover;
+  }
+
+  .skill2 {
+    background: url(https://upload.wikimedia.org/wikipedia/en/9/9e/JQuery_logo.svg) no-repeat center center/100%;
+  }
+
+  .skill3 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg) no-repeat center center/70%;
+  }
+
+  .skill4 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/768px-HTML5_logo_and_wordmark.svg.png) no-repeat center center/cover;
+  }
+
+  .skill5 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg) no-repeat center center/100%;
+  }
+
+  .skill6 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/85px-CSS3_logo_and_wordmark.svg.png) no-repeat center center/70%;
+  }
+
+  .skill7 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/2/2e/Pg_logo.png) no-repeat center center/cover;
+  }
+
+  .skill8 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg) no-repeat center center/cover;
+  }
+
+  .skill9 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/1/1c/Visual_Studio_Code_1.35_icon.png?uselang=zh-tw) no-repeat center center/cover;
+  }
+
+  .skill10 {
+    background: url(https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg?uselang=zh-tw) no-repeat center center/cover;
+  }
+
+  .year {
+    margin-bottom: 8%;
+  }
+
+  .year h4 {
+    margin-top: 0;
+  }
+
+  .exp {
+    border-left: solid 4px #014127;
+    margin-top: 1%;
+    padding-left: 3%;
+  }
+
+  @media screen and (max-width: 992px) {
+    .resume {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .infomation {
+      width: 100%;
+      border-radius: 40px;
+      margin-bottom: 2%;
+      box-shadow: 0 8px 0;
+    }
+
+    .bgBlock {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .deco {
+      display: none;
+    }
+
+    ul.contact,
+    div.about {
+      margin: 8% 0;
+    }
+
+    a.btn {
+      font-size: 1.2rem;
+      margin-top: 8%;
+      padding: 4%;
+      position: absolute;
+      bottom: -8%;
+      left: 45%;
+    }
+
+    .brief {
+      padding: 0 2%;
+    }
+
+    .exp {
+      border: none;
+    }
+
+    .list {
+      justify-content: center;
+    }
+
+    .skillsTotal {
+      flex-wrap: wrap;
+    }
+
+    .skillsTotal .block {
+      width: 100%;
+    }
+
+    .listSkill li {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .listSummary li {
+      width: 25%;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .infomation {
+      margin-bottom: 8%;
+    }
+
+    .avator {
+      width: 40vmin;
+      height: 40vmin;
+      border-radius: 50%;
+    }
+
+    .name {
+      font-size: 2rem;
+    }
+
+    ul.contact,
+    div.about {
+      margin: 12% 0;
+    }
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">張君雅 履歷表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">履歷表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <div class="container">
+    <div class="row" style="border: 6px solid #014127; border-radius:10px; margin: 0 0 10% 0;">
+      <div class="col-6 col-md-4" style="padding: 1% 1% 2% 1%;">
+        <!-- <div class="infomation"> -->
+        <div class="infomation" style="display: flex; flex-direction: column; height: 100%;">
+          <div class="deco"></div><img class="avator" src="{% static 'image/admin.png' %}" />
+          <h1 class="name">張君雅</h1><span class="jobPosition">UX/PY 軟體工程師</span>
+          <ul class="contact py-0 px-3">
+            <li>georgiawang5332@gmail.com</li>
+            <li>0912345678</li>
+          </ul>
+          <!-- <a class="btn" href="https://www.behance.net/d0332b4f" target="_blank">Be</a> -->
+
+          <div class="about">
+            <div class="black-shadow">
+              <h3 class="p-0 text-center white-emboss">Personal</h3>
+            </div>
+            <div class="py-0 px-5 text-left ml-4">
+              <div class="call">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span>JYUN-YA JHANG</span>
+              </div>
+              <div class="call">
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                <span>2025/01/01</span>
+              </div>
+              <div class="call">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span>single</span>
+              </div>
+              <div class="call">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span>Taiwanese</span>
+              </div>
+              <div class="call">
+                <i class="fa fa-language" aria-hidden="true"></i>
+                <span>Chinese</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="contact">
+            <div class="black-shadow">
+              <h3 class="p-0 text-center white-emboss">Contact Me</h3>
+              <!-- style="width: 40%; margin-left: 30%; border: 6px solid #014127; border-radius: 10px;" -->
+            </div>
+            <div class="py-0 px-5 text-left ml-4">
+              <div class="call">
+                <a href="tel:0928111111">
+                  <i class="fa fa-phone" style="font-size: 1.5rem;"></i>
+                  <span>+886 928-111-111</span>
+                </a>
+              </div>
+              <div class="address">
+                <a
+                  href="https://www.google.com/maps/place/10491%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80/@25.0685749,121.5044013,10115m/data=!3m1!1e3!4m6!3m5!1s0x3442abf982a31e01:0x464d170d822eb229!8m2!3d25.0792018!4d121.5427093!16zL20vMDMyZDYz?entry=ttu&g_ep=EgoyMDI0MDgyMC4xIKXMDSoASAFQAw%3D%3D">
+                  <i class="fa fa-map-marker" style="font-size: 1.9rem;"></i>
+                  <span>台北市</span>
+                </a>
+              </div>
+              <div class="email">
+                <a href="mailto:georgiawang5332@gmail.com">
+                  <i class="fa fa-envelope"></i>
+                  <span>我的信箱(Click)</span>
+                </a>
+              </div>
+              <div class="website" style="pointer-events: none;">
+                <a href="#" target="_blank">
+                  <i class="fa fa-home fa-1x" style="font-size: 1.5rem;"></i>
+                  <span>GeorgiaWang.com</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="follow">
+            <div class="black-shadow">
+              <h3 class="p-0 text-center white-emboss">Follow Me</h3>
+              <!-- style="width: 40%; margin-left: 30%; border: 6px solid #014127; border-radius: 10px;" -->
+            </div>
+            <div class="box" style="padding-top: 5%;">
+              <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+              <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+              <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest fa-2x"></i></a>
+              <a href="https://www.linkedin.com" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+              <a href="https://codepen.io/" target="_blank"><i class="fa fa-codepen fa-2x"></i></a>
+              <a href="https://www.behance.net/" target="_blank"><i class="fa fa-behance fa-2x"></i></a>
+            </div>
+          </div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="bgBlock">
+          <div class="block brief">
+            <h4>ABOUT ME</h4>
+            <h2>關於我</h2>
+
+            <div>
+              <div class="section">
+                <ul>
+                  <li>
+                    <h6>自我介紹</h6>
+                  </li>
+                  <li>對學習充滿熱情，對程式技術抱持好奇心，並期望不斷自我成長突破極限; 具備視覺設計、UI/UX 介面設計等相關經驗，參與過多個 APP/Web 專案，參與過系統設計流程;
+                    對於前端與後端開發也有所涉獵，了解如何處理前端資料與資料庫的互動，只是對於 Python 後端開發尚無實戰經驗。</li>
+                </ul>
+              </div>
+
+              <div class="section">
+                <ul>
+                  <li>
+                    <h6>工作期望</h6>
+                  </li>
+                  <li>希望能在台北找到能維持生活的薪資水準，如工作表現出色，也期待公司能給予適當的加薪以及會與團隊溝通協調與團隊創建更好成績，期許自己能在工作中不斷提升效率，為公司帶來更大的價值。</li>
+                </ul>
+              </div>
+
+              <div class="section">
+                <ul>
+                  <li>
+                    <h6>職涯目標</h6>
+                  </li>
+                  <li>希望能成為ERP 用戶體驗設計/架構專業的人才邁進。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="block">
+            <h4>EDUCATION</h4>
+            <h2>學歷</h2>
+            <h3>景文科技大學｜休閒管理系</h3><span>2007 - 2014(2011)</span>
+          </div>
+          <div class="block">
+            <div class="block">
+              <h4>SUMMARY</h4>
+              <h2>專業技能</h2>
+              <ul class="list listSummary">
+                <li>UIUX</li>
+                <li>框架設計</li>
+                <li>ERP規劃</li>
+                <li>靜/動態設計</li>
+                <li>後台資料設計</li>
+                <li>軟體應用丙級</li>
+                <li>TOICE初級</li>
+              </ul>
+            </div>
+            <div class="block">
+              <h4>SKILLS</h4>
+              <h2>軟體技能</h2>
+              <ul class="list listSkill">
+                <li class="skill1"></li>
+                <li class="skill2"></li>
+                <li class="skill3"></li>
+                <li class="skill4"></li>
+                <li class="skill5"></li>
+                <li class="skill6"></li>
+                <li class="skill7"></li>
+                <li class="skill8"></li>
+                <li class="skill9"></li>
+                <li class="skill10"></li>
+              </ul>
+            </div>
+
+            <div class="block">
+              <h4>CERTIFICATE</h4>
+              <h2>相關證書</h2>
+              <div class="list listCertificate">
+                <div class="certificate1">
+                  <img src="{% static 'images/marry.jpg' %}" alt="Certificate 1">
+                </div>
+                <div class="certificate2">
+                  <img src="{% static 'images/marry.jpg' %}" alt="Certificate 2">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="bgBlock">
+          <h4>EXPERIENCE</h4>
+          <h2>工作經歷</h2>
+          <ul class="listExperience">
+            <li class="year">
+              <h3>UI/UX/PYTHON 學習｜ERP作品</h3>
+              <h4>2023.Jan. - 2024.Apr.</h4>
+              <div class="exp">
+                <div class="section">
+                  <h6>表單呈現功能</h6>
+                  <div>可輕鬆建立各種表單，如採購單、銷售單等，能即時查看相關資訊</div>
+                </div>
+
+                <div class="section">
+                  <h6>活動日曆功能</h6>
+                  <div>幫助有效管理公司各項重要活動</div>
+                  <div>確保不會錯過任何關鍵期程</div>
+                </div>
+
+                <div class="section">
+                  <h6>婚禮預算表總計功能</h6>
+                  <div>協助精確追蹤各項費用</div>
+                  <div>方便掌握整體開支</div>
+                </div>
+
+                <div class="section">
+                  <h6>通訊錄管理功能</h6>
+                  <div>集中管理客戶、供應商等各方聯絡資訊</div>
+                  <div>提升工作效率</div>
+                </div>
+
+                <div class="section">
+                  <h6>寄件信件功能</h6>
+                  <div>讓您能快速發送各類信件</div>
+                  <div>提供接收 Gmail 信箱信件功能，我使用 IMAP 設定mail接收會有延遲作用</div>
+                  <div>方便掌握來自各方的最新消息</div>
+                </div>
+
+                <div class="section">
+                  <h6>通訊錄管理功能</h6>
+                  <div>集中管理客戶、供應商等各方聯絡資訊</div>
+                  <div>提升工作效率</div>
+                </div>
+
+                <div class="section">
+                  <h6>資料庫資料規劃</h6>
+                  <div>協助規劃資料儲存</div>
+                  <div>確保資訊安全又方便查詢</div>
+                </div>
+
+                <div class="section">
+                  <h6>履歷設計</h6>
+                  <div>讓您輕鬆建立個人履歷</div>
+                  <div>展現專業形象</div>
+                </div>
+
+                <div class="section">
+                  <h6>使用者姓名與頭像輸出功能</h6>
+                  <p>提升系統使用體驗</p>
+                </div>
+
+                <div class="section">
+                  <h6>網頁切版設計</h6>
+                  <div>協助打造專業形象</div>
+                </div>
+              </div>
+            </li>
+            <li class="year">
+              <h3>UIUX 前端工程師｜XX資訊</h3>
+              <h4>2021.Nov. - 2022.Jan.</h4>
+              <ul class="exp">
+                <li>產品UI設計-版型配置</li>
+                <li>設計介面的元件</li>
+                <li>交付設計規範⽂件</li>
+                <li>App和RWD Web UI設計(Android)</li>
+                <li>設計並優化使用者與產品互動的流程</li>
+                <li>Resize調整及產出切面</li>
+                <li>網頁設計切版</li>
+              </ul>
+            </li>
+            <li class="year">
+              <h3>UIUX 學生｜資策會/臺灣大學</h3>
+              <h4>2019.Nov. - 2021.Jan.</h4>
+              <ul class="exp">
+                <li>產品UI設計-版型配置</li>
+                <li>設計介面的元件</li>
+                <li>交付設計規範⽂件</li>
+                <li>App和RWD Web UI設計(Android)</li>
+                <li>設計並優化使用者與產品互動的流程</li>
+                <li>Resize調整及產出切面</li>
+                <li>網頁設計切版</li>
+              </ul>
+            </li>
+            <li class="year">
+              <h3>業務(行政)人員｜旅遊/房地產業</h3>
+              <h4>2008.Jan. - 2018.Dec.</h4>
+              <ul class="exp">
+                <li>產品UI設計-版型配置</li>
+                <li>設計介面的元件</li>
+                <li>交付設計規範⽂件</li>
+                <li>App和RWD Web UI設計(Android)</li>
+                <li>設計並優化使用者與產品互動的流程</li>
+                <li>Resize調整及產出切面</li>
+                <li>網頁設計切版</li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div> <!-- /. container-->
+
+</div> <!-- /. content-wrapper-->
+{% endblock content %}

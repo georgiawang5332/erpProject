@@ -1,0 +1,51 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">詳閱 婚禮預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">詳閱 婚禮預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+
+        <h1>Delete Currency Page</h1>
+        <h2>你確定要刪除這個貨幣嗎？</h2>
+        {% if del_currency %}
+        <p>{{ del_currency.name }} ({{ del_currency.code }})</p>
+        {% else %}
+        <p>No currency data available./沒有可用的貨幣數據。</p>
+        {% endif %}
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">確認刪除</button>
+          &nbsp;&nbsp;<a href="{% url 'budget:list_currency' %}">取消</a>
+        </form>
+
+
+
+      </div><!-- /.container-fluid -->
+
+
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}

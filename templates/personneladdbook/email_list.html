@@ -1,0 +1,239 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<style>
+  .unread {
+    font-weight: bold;
+  }
+
+  .read {
+    font-weight: normal;
+  }
+
+  /* 20240903 add start */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    word-wrap: break-word;
+    /* 防止表格內容超出單元格 */
+    white-space: nowrap;
+  }
+
+  .btn {
+    width: 100%;
+    /* 確保按鈕占滿欄位寬度 */
+  }
+
+  /* 20240903 add end */
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    /* 調整這個值以適應您的需求 */
+  }
+
+  .narrow-column {
+    width: 80px;
+    /* 為較窄的列設置固定寬度 */
+  }
+
+  .medium-column {
+    width: 120px;
+    /* 為中等寬度的列設置固定寬度 */
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">列表 信箱郵件</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">列表 信箱中的郵件</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+
+  <!-- Main container-fluid -->
+  <section class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid">
+        <div class="card">
+
+          <div class="card-header">
+            <h3 class="card-title">把寄到信箱的所有信件都在此排列</h3>
+          </div>
+
+          <div class="card-body">
+
+            <p>Total emails: <span id="total-emails">{{ total_emails }}</span></p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-hover w-100">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">狀態</th>
+                    <th scope="col">主題</th>
+                    <th scope="col">留言訊息</th>
+                    <th scope="col">來自郵件</th>
+                    <th scope="col" class="medium-column">收件者郵件帳號</th>
+                    <th scope="col" class="vertical-text">接收時間</th>
+                    <th scope="col" class="medium-column">是否已發送</th>
+                    <th scope="col" class="medium-column">資料夾</th>
+                    <th scope="col">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for email in page_obj %}
+                  <tr id="email-{{ email.id }}" class="{% if email.is_read %}read{% else %}unread{% endif %}">
+                    <!-- <tr id="email-{{ email.id }}"> -->
+                    <th scope="row">{{email.id}}</th>
+                    <td>
+                      <span class="read-status" data-email-id="{{ email.id }}">
+                        {% if email.is_read %}已讀{% else %}未讀{% endif %}
+                      </span>
+                    </td>
+                    <td>
+                      <a href="#" class="email-link" data-email-id="{{ email.id }}">{{email.subject}}</a>
+                    </td>
+                    <td>{{email.message}}</td>
+                    <td>{{email.from_email}}</td>
+                    <td>{{email.to_email}}</td>
+                    <td>{{email.received_at}}</td>
+                    <td>{{email.is_sent}}</td>
+                    <td>{{email.folder}}</td>
+                    <td>
+                      <form action="{% url 'personnelAddBook:delete_email' email.id %}" method="post"
+                        onsubmit="return confirm('確定要刪除這封郵件嗎?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                      </form>
+                    </td> <!-- 刪除按鈕 -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination">
+              <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+
+          </div><!-- /.card-body -->
+        </div><!-- /.card -->
+
+
+
+      </div><!-- /.container-fluid -->
+
+    </div><!-- /.row -->
+  </section><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  // 添加 JavaScript 來處理點擊事件和更新已讀狀態：
+  $(document).ready(function () {
+    $('.email-link').click(function (e) {
+      console.log("Latest Email Time: " + data.latest_email_time);
+      console.log("Latest Group Email Time: " + data.latest_group_email_time);
+
+      e.preventDefault();
+      var emailId = $(this).data('email-id');
+      var row = $(this).closest('tr');
+      // var statusSpan = $('.read-status[data-email-id="' + emailId + '"]');
+      var statusSpan = row.find('.read-status');
+
+      $.ajax({
+        url: '{% url "personnelAddBook:mark_as_read" %}',
+        method: 'POST',
+        data: {
+          email_id: emailId,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function (response) {
+          if (response.success) {
+            statusSpan.text('已讀');
+            row.removeClass('unread').addClass('read');
+            // 可以在這裡添加其他UI更新
+          }
+        }
+      });
+    });
+  });
+
+  // 接收Gmail js
+  function checkNewEmails() {
+    var lastEmailId = $('#last-email-id').val();
+    $.ajax({
+      url: '/check_new_emails/',
+      data: { 'last_id': lastEmailId },
+      success: function (response) {
+        if (response.new_emails.length > 0) {
+          var emailList = $('#email-list');
+          // 
+          response.new_emails.forEach(function (email) {
+            emailList.prepend(`
+            <li>
+              ${email.received_at} - ${email.subject} from: ${email.from_email} / to: ${email.to_email} - Is Sent: ${email.is_sent}
+            </li>
+          `);
+          });
+          // 
+          // response.new_emails.forEach(function (email) {
+          //   emailList.prepend('<li>' + email.received_at + ' - ' + email.subject + ' from: ' + email.from_email + ' / to: ' + email.to_email + ' - Is Sent: ' + email.is_sent + '</li>');
+          // });
+          $('#last-email-id').val(response.new_emails[0].id);
+          var totalEmails = parseInt($('#total-emails').text()) + response.new_emails.length;
+          $('#total-emails').text(totalEmails);
+        }
+      }
+    });
+  }
+
+  // 每 30 秒檢查一次新郵件
+  setInterval(checkNewEmails, 30000);
+</script>
+
+{% endblock %}

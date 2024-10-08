@@ -1,0 +1,253 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+
+{% block title %}Dashboard About Us{% endblock title %}
+
+{% block content %}
+<!-- A Tribute to Papa Bear : https://codepen.io/jrl80/pen/dXovyO?editors=1100 -->
+<!-- fonts 字體: https://www.cdnfonts.com/thank-you.font -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- <link href="https://fonts.cdnfonts.com/css/tokyolights" rel="stylesheet"> -->
+<link href="https://fonts.cdnfonts.com/css/sorai" rel="stylesheet">
+<!-- https://www.cdnfonts.com/sorai.font -->
+<link href="https://fonts.cdnfonts.com/css/thank-you" rel="stylesheet">
+
+<style media="screen">
+  .jumbotron {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .jumbotron h1 {
+    text-align: center;
+  }
+
+  .alert {
+    margin: 0px;
+  }
+
+  /* about us start  */
+  .txt {
+    border-radius: 25px;
+    background: #0B162A;
+    padding: 15px;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .headline {
+    color: #f3a88c;
+    /* font-family: 'TokyoLights', sans-serif; */
+    font-family: 'Sorai', sans-serif;
+
+    font-size: 37px;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 65px;
+  }
+
+  h3 {
+    font-family: "Aguafina Script";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: 100;
+    line-height: 15.4px;
+  }
+
+  p {
+    font-family: "Aguafina Script";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: 100;
+    line-height: 20px;
+  }
+
+  blockquote {
+    font-family: "Aguafina Script";
+    font-size: 21px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: 100;
+    line-height: 30px;
+  }
+
+  pre {
+    font-family: "Aguafina Script";
+    font-size: 13px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: 100;
+    line-height: 18.5714px;
+  }
+
+  .lead {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+  }
+
+  h3 {
+    font-family: "Special Elite";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 15.4px;
+  }
+
+  p {
+    font-family: "Special Elite";
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  blockquote {
+    font-family: "Special Elite";
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 30px;
+  }
+
+  pre {
+    font-family: "Special Elite";
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    /* line-height: 18.5714px; */
+  }
+
+  .ruler {
+    background-color: #f3a88c;
+    border-color: #f3a88c;
+    height: 2px;
+  }
+
+  .artic {
+    color: #bbb;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    padding: 25px 80px 25px 80px;
+  }
+
+  .capt_tit {
+    color: #bbb;
+    font-style: italic;
+    font-family: 'Oswald', sans-serif;
+    padding-top: 1.5rem;
+  }
+
+  .capt {
+    color: #bbb;
+    font-style: italic;
+    font-family: 'Oswald', sans-serif;
+    text-align: right;
+    padding-right: 4rem;
+  }
+
+  .link {
+    color: #bbf;
+    font-style: italic;
+  }
+
+  .quote {
+    color: #fff;
+    font-size: 35px;
+    font-family: 'Thank You', sans-serif;
+    line-height: 40px;
+
+  }
+
+  #about-us-text {
+    color: #999999;
+    font-size: 16px;
+    letter-spacing: 1px;
+    width: 700px;
+    line-height: 31px;
+  }
+
+  /* about us start  */
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">關於我</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁 Home</a></li>
+            <li class="breadcrumb-item active">關於我</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <section class="content">
+    <!-- <h3 class='alert alert-success' style="margin-bottom:0px;">關於我</h3> -->
+    <div class="row">
+      <div class="col-md-12">
+        <center>
+          <div class="jumbotron" class="main-header navbar navbar-expand navbar-white navbar-light"
+            style="margin-bottom: 0px;margin-top: 0px;">
+            <pre
+              class="lead">親愛的親朋好友們: <br>周與王家終於要結為連理，時間訂於</br><h4 style="padding-top: .6rem;">西元2025年04月20號(六)</h4></pre>
+            <div class="container txt">
+              <div="headline">
+                <h1 class="text-center headline">* wedding invitation + </h1>
+                <hr class="ruler">
+                <center><img src="{% static 'images/marry.jpg' %}" class="image" alt="George Halas 1920-1929">
+                  <p class="capt_tit">A youthful George Halas in his playing days, 1920-1929</p>
+                </center>
+                <div id="about-us-text">CMT panels have been in the industry for over 30 years. Our aim is to bring your
+                  project vision to reality.
+                  With unrivaled experience in the sandwich panel and cool room industry, you can rest assured knowing
+                  that our team of accredited builders, installers and project managers will assist you with your
+                  project
+                  from start to finish no matter how big or small.
+                  CMT panels is leading the industry by staying abreast with technology using the latest in panel
+                  installing
+                  techniques, we have been trusted to play a large part in installing some of Australasia&#39;s biggest
+                  projects.
+                  Using only the best available materials on the market and a focus on quality, you can be at ease
+                  knowing
+                  that you are in good hands at CMT panels.
+                </div>
+                <center style="padding-top: 25px;">
+                  <p class="quote">"Nothing is work unless you'd rather be doing something else."</p>
+                  <p class='capt'>-George S. Halas</p>
+                </center>
+                <p class="artic">Mr. Halas was an influential member of professional football from its early days up
+                  until
+                  his
+                  death in 1983. He pioneered many of today's common practices, including radio broadcasts, film
+                  analysis,
+                  and
+                  daily training sessions. More information about
+                  George Halas is available from <a class="link"
+                    href="http://www.legacy.com/news/explore-history/article/papa-bear-george-halas">Legacy.com.</a>
+                </p>
+            </div>
+          </div>
+        </center>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+{% endblock content %}

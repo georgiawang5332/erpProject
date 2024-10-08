@@ -1,0 +1,31 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %} 客戶邀請網站 {% endblock title %}
+
+{% block content %}
+<style>
+  .jumbotron {
+    margin-bottom: 0px;
+    margin-bottom: 0 !important;
+
+  }
+</style>
+{% include "website/_include/navbar.html" %}
+<br>
+<section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+  <div class="container text-center">
+    <h1 class="display-1 text-info">Let's Fill out the invitation letter !!!</h1>
+    <p class="display-4 d-none d-sm-block">踴躍填寫您的表單，讓我知道您的需求。</p>
+    <p class="lead">填表單的期限為 04/30/2024 ，歡迎大家共襄盛舉見證新人的婚宴，謝謝。</p>
+    <p class="lead">想看更多可註冊，可訪問您有興趣的主題，如有疑問或指教，請大方地留言給我，謝謝。</p>
+    <p><strong> 從這裡開始您的旅程：</strong></p>
+    <a href="" class="btn btn-lg btn-info" style="padding-right: 35px;"><i
+        class="fa fa-user-plus" aria-hidden="true"></i> 註冊</a>
+    <!-- /student/studentsignup -->
+    <br><br><br>
+    <p>您已造訪此頁面 {{ num_visits }} 次.</p>
+  </div>
+</section>
+{% include "website/_include/footer.html" %}
+{% endblock content %}

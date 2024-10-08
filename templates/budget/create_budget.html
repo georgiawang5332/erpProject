@@ -1,0 +1,252 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+  .input-group-text {
+    width: 8rem;
+    /* 根據需求調整這個寬度 */
+    justify-content: center;
+    /* 讓文字在span內居中 */
+  }
+</style>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">新增 婚禮預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">新增 婚禮預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">婚禮預算表</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">新增 婚禮預算表</li>
+          </ol>
+        </nav> -->
+
+        <div class="card">
+          <div class="card-body">
+
+            <form id="budgetForm" action="" method="post">
+              {% csrf_token %}
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">類別</span>
+                  </div>
+                  <select name="category" id="category" class="form-control" required>
+                    <option class="text-center" value="" selected disabled>------ 選擇哪個類別 ------</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">支出項目</span>
+                  </div>
+                  <input type="text" id="expenditure_items" name="expenditure_items" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計數量</span>
+                  </div>
+                  <input type="text" id="estimated_quantity" name="estimated_quantity" class="form-control"
+                    value="{{ create_budget_sheets.estimated_quantity }}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計單價</span>
+                  </div>
+                  <input type="text" id="estimated_unit_price" name="estimated_unit_price" class="form-control"
+                    value="{{ create_budget_sheets.estimated_unit_price }}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">貨幣</span>
+                  </div>
+                  <select name="currency" id="currency" class="form-control" required>
+                    <option class="text-center" selected><b>------ 選擇哪種貨幣 ------</b></option>
+                    {% for currency in currencies %}
+                    <option value="{{ currency.id }}">{{ currency.name }} ({{ currency.code }})</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <!-- <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計費用支出</span>
+                  </div>
+                  <input type="text" id="estimated_expenses" name="estimated_expenses" class="form-control"
+                    value="{{ create_budget_sheets.estimated_expenses }}" required>
+                </div>
+              </div> -->
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">備註1</span>
+                  </div>
+                  <input type="text" id="remark_one" name="remark_one" class="form-control"
+                    value="{{ create_budget_sheets.remark_one }}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">實際數量</span>
+                  </div>
+                  <input type="text" id="actual_quantity" name="actual_quantity" class="form-control"
+                    value="{{ create_budget_sheets.actual_quantity }}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">實際單價</span>
+                  </div>
+                  <input type="text" id="actual_unit_price" name="actual_unit_price" class="form-control"
+                    value="{{ create_budget_sheets.actual_unit_price }}" required>
+                </div>
+              </div>
+
+              <!-- <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">已付款</span>
+                  </div>
+                  <input type="text" id="paid" name="paid" class="form-control" value="{{ create_budget_sheets.paid }}"
+                    required>
+                </div>
+              </div> -->
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">付款人</span>
+                  </div>
+                  <input type="text" id="payer" name="payer" class="form-control"
+                    value="{{ create_budget_sheets.payer }}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">備註2</span>
+                  </div>
+                  <input type="text" id="remark_two" name="remark_two" class="form-control"
+                    value="{{ create_budget_sheets.remark_two }}" required>
+                </div>
+              </div>
+
+
+              <input type="submit" value="新增資料" class="btn btn-primary btn-primary-sm" />
+            </form>
+            <!-- 表單下方添加一個用於顯示錯誤信息的 div -->
+            <div id="errorMessage" style="color: red;"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <a href="{% url 'budget:budget_sheet_click' %}" class="btn btn-primary-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 使用 JavaScript alert 彈出錯誤提示 -->
+<script>
+  $(document).ready(function () {
+    $('#budgetForm').submit(function (e) {
+      e.preventDefault();
+
+      // 清除之前的錯誤訊息
+      $('#errorMessage').text('');
+
+      // 驗證必填欄位
+      var requiredFields = ['category', 'expenditure_items', 'currency'];
+      var isValid = true;
+
+      requiredFields.forEach(function (field) {
+        if (!$('[name="' + field + '"]').val()) {
+          isValid = false;
+          $('#errorMessage').append('請填寫' + $('label[for="' + field + '"]').text() + '<br>');
+        }
+      });
+
+      // 驗證數值欄位
+      var numberFields = ['estimated_quantity', 'estimated_unit_price', 'actual_quantity', 'actual_unit_price'];
+
+      numberFields.forEach(function (field) {
+        var value = $('[name="' + field + '"]').val();
+        if (value && isNaN(parseFloat(value))) {
+          isValid = false;
+          $('#errorMessage').append($('label[for="' + field + '"]').text() + '必須是有效的數字<br>');
+        }
+      });
+
+      if (isValid) {
+        // 如果驗證通過，提交表單
+        $.ajax({
+          type: 'POST',
+          url: '',
+          data: $(this).serialize(),
+          dataType: 'json',
+          success: function (response) {
+            if (response.status === 'error') {
+              $('#errorMessage').text(response.message);
+            } else {
+              alert(response.message);
+              window.location.href = '{% url "budget:budget_sheet_click" %}';
+            }
+          },
+          error: function () {
+            $('#errorMessage').text('發生錯誤，請稍後再試。');
+          }
+        });
+      }
+    });
+  });
+
+</script>
+{% endblock %}

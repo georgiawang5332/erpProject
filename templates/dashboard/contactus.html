@@ -1,0 +1,22 @@
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+{% include "website/_include/navbar.html" %}
+<br><br>
+<center>
+  <h3 class='alert alert-success'>意見回饋表</h3>
+  <!-- <p>向我們發送您的寶貴回饋意見！</p> -->
+  <form method="POST" autocomplete="off">
+    <!-- Very Important csrf Token -->
+    {% csrf_token %}
+    <div class="form-group">
+      <p>
+      <h3>{{ form.as_p }}</h3>
+      </p>
+      <br>
+      <input type="submit" value="Send Message" class='btn btn-primary btn-lg'>
+    </div>
+  </form>
+</center>
+
+{% include "website/_include/footer.html" %}

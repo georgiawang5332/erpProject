@@ -1,0 +1,204 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<style>
+  .input-group-text {
+    width: 8rem;
+    /* 根據需求調整這個寬度 */
+    justify-content: center;
+    /* 讓文字在span內居中 */
+  }
+</style>
+<div class="content-wrapper" style="min-height: 244.792px;">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">編輯 婚禮預算表</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active">編輯 婚禮預算表</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div><!-- /.content-header -->
+
+  <!-- Main container-fluid -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="container-fluid"><!--mt-4-->
+        <!-- <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">Income</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Edit Income
+            </li>
+          </ol>
+        </nav> -->
+
+        <div class="card">
+          <div class="card-body">
+            <form action="{% url 'budget:update_budget' id=edit_budget_sheets.id %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">項目編號</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="id" value="{{edit_budget_sheets.id}}" readonly />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">類別</span>
+                  </div>
+                  <select class="form-control form-control-lg" name="category">
+                    {% for category in categories %}
+                    <option value="{{ category.name }}" {% if category == edit_budget_sheets.category %} selected {% endif %}>
+                      {{ category.name }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">支出項目</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="expenditure_items"
+                    value="{{edit_budget_sheets.expenditure_items}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計數量</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="estimated_quantity"
+                    value="{{edit_budget_sheets.estimated_quantity}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計單價</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="estimated_unit_price"
+                    value="{{edit_budget_sheets.estimated_unit_price}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">貨幣</span>
+                  </div>
+                  <select class="form-control form-control-lg" name="currency">
+                    {% for currency in currencies %}
+                    <option value="{{ currency.name }}" {% if currency == edit_budget_sheets.currency %} selected {% endif %}>
+                      {{ currency.name }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">預計費用支出</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="estimated_expenses"
+                    value="{{edit_budget_sheets.estimated_expenses}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">備註1</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="remark_one"
+                    value="{{edit_budget_sheets.remark_one}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">實際數量</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="actual_quantity"
+                    value="{{edit_budget_sheets.actual_quantity}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">實際單價</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="actual_unit_price"
+                    value="{{edit_budget_sheets.actual_unit_price}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">已付款</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="paid"
+                    value="{{edit_budget_sheets.paid}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">付款人</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="payer"
+                    value="{{edit_budget_sheets.payer}}" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">備註2</span>
+                  </div>
+                  <input type="text" class="form-control form-control-lg" name="remark_two"
+                    value="{{edit_budget_sheets.remark_two}}" />
+                </div>
+              </div>
+              
+              <input type="submit" value="更新資料" class="btn btn-primary btn-primary-sm" />
+            </form>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <a href="{% url 'budget:budget_sheet_click' %}" class="btn btn-primary-sm">
+            <i class="fa fa-undo" aria-hidden="true"></i> 返回選單列表</a>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.content-wrapper -->
+
+{% endblock %}
