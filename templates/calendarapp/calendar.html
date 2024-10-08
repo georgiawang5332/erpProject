@@ -299,17 +299,24 @@
 </div><!-- \.content-wrapper -->
 
 <script>
+  // 日期點擊後會自動產生
   function converterDataParaDjangoFormat(data) {
     const dataJS = new Date(data);
     const ano = dataJS.getFullYear();
     const mes = (dataJS.getMonth() + 1).toString().padStart(2, '0');
     const dia = dataJS.getDate().toString().padStart(2, '0');
+
+    // 取得24小時制的時間
     const hora = dataJS.getHours().toString().padStart(2, '0');
     const minuto = dataJS.getMinutes().toString().padStart(2, '0');
     const segundo = dataJS.getSeconds().toString().padStart(2, '0');
+
+    // 生成 Django 可接受的日期時間格式 (YYYY-MM-DD HH:MM:SS 24小時制)
     const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+
     return formatoDjango;
   }
+
   document.addEventListener('DOMContentLoaded', function () {
     // 獲取三個 div 元素
     var calendarEl1 = document.getElementById('calendar1');
@@ -522,11 +529,7 @@
     const eventModal = document.getElementById('detailModal')
     eventModal.style.display = 'none';
   });
-  // function formatDateTime(dateTime) {
-  //   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'local' , timeZoneName: 'short' };
-  //   const dataFormatada = new Date(dateTime).toLocaleDateString('zh-TW', options);
-  //   return dataFormatada;
-  // };
+
   function formatDateTime(dateTime) {
     const options = {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
@@ -619,24 +622,7 @@
       clearInterval(intervalId); // 停止檢查
     }
   }, 100); // 每 100 毫秒檢查一次
-  //   document.addEventListener('DOMContentLoaded', function () {
-  //     var calendarEl = document.getElementById('calendar');
-  //     var calendar = new FullCalendar.Calendar(calendarEl, {
-  //       // 其他 FullCalendar 配置...
 
-  //       viewDidMount: function (view) {
-  //         // 在視圖掛載後添加 class
-  //         var fcElement = document.querySelector('.flex-item');
-  //         if (fcElement) {
-  //           fcElement.classList.add('col-12', 'col-md-6', 'col-lg-4');
-  //         }
-  //       }
-  //     });
+</script>
 
-  //     calendar.render();
-  //   });
-  // </script>
-<!-- flex-item fc fc-media-screen fc-direction-ltr fc-theme-standard -->
-<!-- flex-item fc fc-media-screen fc-direction-ltr fc-theme-standard -->
-<!-- flex-item fc fc-media-screen fc-direction-ltr fc-theme-standard -->
 {% endblock content %}

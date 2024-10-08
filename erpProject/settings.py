@@ -32,7 +32,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # 通常是 587 或 465
 EMAIL_USE_TLS = True  # 或 False，取決於您的 SMTP 服務器
 EMAIL_HOST_USER = 'georgiawang5332@gmail.com'
-
+EMAIL_HOST_PASSWORD = 'spotksfpejpmbndp'
 
 # Application definition
 INSTALLED_APPS = [
@@ -143,13 +143,13 @@ AUTH_USER_MODEL = "accounts.User"
 
 LANGUAGE_CODE = 'zh-Hant'
 
-TIME_ZONE = 'Asia/Taipei'
+TIME_ZONE = 'Asia/Taipei'# 設定為你當地的時區
 
 USE_I18N = True
 # 這個設置確保 Django 使用本地化格式來顯示日期和時間。
 USE_L10N = True
 # 這個設置關閉了 Django 的時區支持，這意味著 Django 將會假設所有的時間都是本地時間而不是 UTC。
-USE_TZ = True
+USE_TZ = True# 允許使用時區
 
 
 # Static files (CSS, JavaScript, Images)
