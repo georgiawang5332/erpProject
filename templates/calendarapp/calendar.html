@@ -299,20 +299,29 @@
 </div><!-- \.content-wrapper -->
 
 <script>
+
   // 日期點擊後會自動產生
   function converterDataParaDjangoFormat(data) {
     const dataJS = new Date(data);
-    const ano = dataJS.getFullYear();
-    const mes = (dataJS.getMonth() + 1).toString().padStart(2, '0');
-    const dia = dataJS.getDate().toString().padStart(2, '0');
+    const tpeDate = new Date(dataJS.toLocaleString('en-US', { timeZone: 'Asia/Taipei' }));
+  const ano = tpeDate.getFullYear();
+  const mes = (tpeDate.getMonth() + 1).toString().padStart(2, '0');
+  const dia = tpeDate.getDate().toString().padStart(2, '0');
 
     // 取得24小時制的時間
-    const hora = dataJS.getHours().toString().padStart(2, '0');
-    const minuto = dataJS.getMinutes().toString().padStart(2, '0');
-    const segundo = dataJS.getSeconds().toString().padStart(2, '0');
+    const hora = tpeDate.getHours().toString().padStart(2, '0');// 24小時制
+    const minuto = tpeDate.getMinutes().toString().padStart(2, '0');
+    const segundo = tpeDate.getSeconds().toString().padStart(2, '0');
 
+    // 獲取時區偏移量
+    // const offset = dataJS.getTimezoneOffset(); // 以分鐘為單位
+    // const offsetHours = Math.floor(Math.abs(offset) / 60).toString().padStart(2, '0');
+    // const offsetMinutes = (Math.abs(offset) % 60).toString().padStart(2, '0');
+    // const offsetSign = offset > 0 ? '-' : '+';
     // 生成 Django 可接受的日期時間格式 (YYYY-MM-DD HH:MM:SS 24小時制)
+    // const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
     const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+
 
     return formatoDjango;
   }
@@ -336,7 +345,7 @@
       },
       // 其他配置選項
       aspectRatio: 1.5,
-      timeZone: 'local',  // 確保使用本地時區
+      timeZone: 'Asia/Taipei',  // 確保使用本地時區
       locale: 'zh-tw',
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
@@ -364,7 +373,7 @@
 
         var modal = document.getElementById('detailModal')
         var modalTitle = document.getElementById('title_event_detail');
-        var modalStart = document.getElementById('start_event_detail');
+        var modalStart = document.getElementById('start_event_detail').textContent = formatoDjango;;
         var modalEnd = document.getElementById('end_event_detail');
         var modalDescripition = document.getElementById('description_event_detail');
         var deleteButton = document.getElementById("delete-event-button");
@@ -397,7 +406,7 @@
     },
     // 其他配置選項
     aspectRatio: 1.5,
-    timeZone: 'local',  // 確保使用本地時區
+    timeZone: 'Asia/Taipei',  // 確保使用本地時區
     locale: 'zh-tw',
     initialDate: new Date(),
     navLinks: true, // can click day/week names to navigate views
@@ -457,7 +466,7 @@
     },
     // 其他配置選項
     aspectRatio: 1.5,
-    timeZone: 'local',  // 確保使用本地時區
+    timeZone: 'Asia/Taipei',  // 確保使用本地時區
     locale: 'zh-tw',
     initialDate: new Date(today.getFullYear(), today.getMonth() + 1, 1), // 下下個月,
     navLinks: true, // can click day/week names to navigate views
