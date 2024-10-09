@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
-  @charset "UTF-8";
-  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
-
   * {
     /* outline: 1px solid red; */
     list-style-type: none
@@ -161,13 +158,13 @@
   }
 
   .deco {
-    position: absolute;
+    /* position: absolute;
     top: 4%;
     left: 10%;
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(-60deg, #014127, #FFCC71);
+    background: linear-gradient(-60deg, #014127, #FFCC71); */
   }
 
   .infomation {
@@ -315,12 +312,107 @@
     padding-left: 3%;
   }
 
+  /* 媒體查詢調整 */
+  /* 自定義類別 */
+  .custom-col-1900 {
+    padding: 1% 1% 2% 1%;
+    width: 100%;
+    /* 默認情況下佔滿整行 */
+  }
+
+  /* 大螢幕（≥1900px）時，設置為三分之一寬度 */
+  @media (min-width: 1400px) {
+    .custom-col-1900 {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+  }
+
+  /* 現有的媒體查詢調整 */
   @media screen and (max-width: 992px) {
-    .resume {
-      justify-content: center;
-      text-align: center;
+    .infomation {
+      width: 100%;
+      border-radius: 40px;
+      margin-bottom: 2%;
+      box-shadow: 0 8px 0;
     }
 
+    .bgBlock {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .deco {
+      display: none;
+    }
+
+    ul.contact,
+    div.about {
+      margin: 8% 0;
+    }
+
+    a.btn {
+      font-size: 1.2rem;
+      margin-top: 8%;
+      padding: 4%;
+      position: absolute;
+      bottom: -8%;
+      left: 45%;
+    }
+
+    .brief {
+      padding: 0 2%;
+    }
+
+    .exp {
+      border: none;
+    }
+
+    .list {
+      justify-content: center;
+    }
+
+    .skillsTotal {
+      flex-wrap: wrap;
+    }
+
+    .skillsTotal .block {
+      width: 100%;
+    }
+
+    .listSkill li {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .listSummary li {
+      width: 25%;
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    .infomation {
+      margin-bottom: 8%;
+    }
+
+    .avator {
+      width: 40vmin;
+      height: 40vmin;
+      border-radius: 50%;
+    }
+
+    .name {
+      font-size: 2rem;
+    }
+
+    ul.contact,
+    div.about {
+      margin: 12% 0;
+    }
+  }
+
+  /* @media (min-width: 575px) and (max-width: 1399px) {
     .infomation {
       width: 100%;
       border-radius: 40px;
@@ -401,7 +493,7 @@
     div.about {
       margin: 12% 0;
     }
-  }
+  } */
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -426,18 +518,20 @@
 
   <div class="container">
     <div class="row" style="border: 6px solid #014127; border-radius:10px; margin: 0 0 10% 0;">
-      <div class="col-6 col-md-4" style="padding: 1% 1% 2% 1%;">
-        <!-- <div class="infomation"> -->
-        <div class="infomation" style="display: flex; flex-direction: column; height: 100%;">
-          <div class="deco"></div><img class="avator" src="{% static 'image/admin.png' %}" />
-          <h1 class="name">張君雅</h1><span class="jobPosition">UX/PY 軟體工程師</span>
+      <!-- 第一個區塊 -->
+      <div class="col-12 custom-col-1900" style="padding: 1% 1% 2% 1%;">
+        <div class="infomation d-flex flex-column h-100">
+          <!-- <div class="deco"></div> -->
+          <img class="avator" src="{% static 'image/admin.png' %}" alt="Avatar" />
+          <h1 class="name">張君雅</h1>
+          <span class="jobPosition">UX/PY 軟體工程師</span>
           <ul class="contact py-0 px-3">
             <li>georgiawang5332@gmail.com</li>
             <li>0912345678</li>
           </ul>
           <!-- <a class="btn" href="https://www.behance.net/d0332b4f" target="_blank">Be</a> -->
 
-          <div class="about">
+          <div class="about mb-3">
             <div class="black-shadow">
               <h3 class="p-0 text-center white-emboss">Personal</h3>
             </div>
@@ -465,11 +559,9 @@
             </div>
           </div>
 
-
-          <div class="contact">
+          <div class="contact mb-3">
             <div class="black-shadow">
               <h3 class="p-0 text-center white-emboss">Contact Me</h3>
-              <!-- style="width: 40%; margin-left: 30%; border: 6px solid #014127; border-radius: 10px;" -->
             </div>
             <div class="py-0 px-5 text-left ml-4">
               <div class="call">
@@ -479,8 +571,8 @@
                 </a>
               </div>
               <div class="address">
-                <a
-                  href="https://www.google.com/maps/place/10491%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80/@25.0685749,121.5044013,10115m/data=!3m1!1e3!4m6!3m5!1s0x3442abf982a31e01:0x464d170d822eb229!8m2!3d25.0792018!4d121.5427093!16zL20vMDMyZDYz?entry=ttu&g_ep=EgoyMDI0MDgyMC4xIKXMDSoASAFQAw%3D%3D">
+                <a href="https://www.google.com/maps/place/10491%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80/@25.0685749,121.5044013,10115m/data=!3m1!1e3!4m6!3m5!1s0x3442abf982a31e01:0x464d170d822eb229!8m2!3d25.0792018!4d121.5427093!16zL20vMDMyZDYz?entry=ttu&g_ep=EgoyMDI0MDgyMC4xIKXMDSoASAFQAw%3D%3D"
+                  target="_blank">
                   <i class="fa fa-map-marker" style="font-size: 1.9rem;"></i>
                   <span>台北市</span>
                 </a>
@@ -500,25 +592,24 @@
             </div>
           </div>
 
-
           <div class="follow">
             <div class="black-shadow">
               <h3 class="p-0 text-center white-emboss">Follow Me</h3>
-              <!-- style="width: 40%; margin-left: 30%; border: 6px solid #014127; border-radius: 10px;" -->
             </div>
             <div class="box" style="padding-top: 5%;">
-              <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
-              <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
-              <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest fa-2x"></i></a>
-              <a href="https://www.linkedin.com" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
-              <a href="https://codepen.io/" target="_blank"><i class="fa fa-codepen fa-2x"></i></a>
-              <a href="https://www.behance.net/" target="_blank"><i class="fa fa-behance fa-2x"></i></a>
+              <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+              <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+              <a href="https://www.pinterest.com/" target="_blank"><i class="fab fa-pinterest fa-2x"></i></a>
+              <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+              <a href="https://codepen.io/" target="_blank"><i class="fab fa-codepen fa-2x"></i></a>
+              <a href="https://www.behance.net/" target="_blank"><i class="fab fa-behance fa-2x"></i></a>
             </div>
           </div>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
       </div>
-      <div class="col-6 col-md-4">
+
+      <!-- 第二個區塊 -->
+      <div class="col-12 custom-col-1900">
         <div class="bgBlock">
           <div class="block brief">
             <h4>ABOUT ME</h4>
@@ -557,7 +648,8 @@
           <div class="block">
             <h4>EDUCATION</h4>
             <h2>學歷</h2>
-            <h3>景文科技大學｜休閒管理系</h3><span>2007 - 2014(2011)</span>
+            <h3>景文科技大學｜休閒管理系</h3>
+            <span>2007 - 2014(2011)</span>
           </div>
           <div class="block">
             <div class="block">
@@ -605,7 +697,9 @@
           </div>
         </div>
       </div>
-      <div class="col-6 col-md-4">
+
+      <!-- 第三個區塊 -->
+      <div class="col-12 custom-col-1900">
         <div class="bgBlock">
           <h4>EXPERIENCE</h4>
           <h2>工作經歷</h2>
@@ -713,11 +807,16 @@
               </ul>
             </li>
           </ul>
-
         </div>
       </div>
     </div>
-  </div> <!-- /. container-->
+  </div> <!-- /.container -->
 
 </div> <!-- /. content-wrapper-->
+
+
+<!-- 引入 Bootstrap JS 和依賴的 Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 {% endblock content %}

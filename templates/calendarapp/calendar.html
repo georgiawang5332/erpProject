@@ -5,9 +5,17 @@
 
 {% block content %}
 <script src="{% static 'fullcalendar-6.1.11/dist/index.global.min.js' %}"></script>
-<link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+<!-- <link href="{% static 'calender/main.css' %}" rel="stylesheet" /> -->
 
 <style>
+  /* Charts 他的icon => right fas fa-angle-left 跑掉 */
+  .nav-sidebar .nav-link>.right,
+  .nav-sidebar .nav-link>p>.right {
+    right: .6rem;
+    top: .3rem !important;
+  }
+  /* Charts 他的icon => right fas fa-angle-left 跑掉 */
+
   * {
     /* outline: 1px solid red; */
   }
@@ -304,9 +312,9 @@
   function converterDataParaDjangoFormat(data) {
     const dataJS = new Date(data);
     const tpeDate = new Date(dataJS.toLocaleString('en-US', { timeZone: 'Asia/Taipei' }));
-  const ano = tpeDate.getFullYear();
-  const mes = (tpeDate.getMonth() + 1).toString().padStart(2, '0');
-  const dia = tpeDate.getDate().toString().padStart(2, '0');
+    const ano = tpeDate.getFullYear();
+    const mes = (tpeDate.getMonth() + 1).toString().padStart(2, '0');
+    const dia = tpeDate.getDate().toString().padStart(2, '0');
 
     // 取得24小時制的時間
     const hora = tpeDate.getHours().toString().padStart(2, '0');// 24小時制

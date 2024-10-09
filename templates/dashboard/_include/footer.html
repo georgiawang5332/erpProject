@@ -1,9 +1,39 @@
 {% load static %}
 
+<style>
+  .main-footer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .main-footer .version {
+    margin-top: 10px;
+  }
+
+  @media (min-width: 768px) {
+    .main-footer {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+
+    .main-footer .version {
+      margin-top: 0;
+    }
+  }
+</style>
+
+
 <footer class="main-footer">
-  <strong>Copyright &copy; 2024 <a href="/">Georgia Wang</a>.</strong>
-  All rights reserved.
-  <div class="float-right d-none d-sm-inline-block">
-    <b>Version:</b>Python-3.12.4 / Django-4.2.7
+  <div class="copyright">
+    <strong>Copyright &copy; 2024 <a href="/">Georgia Wang</a>.</strong>
+    All rights reserved.
+  </div>
+  <div class="version d-none d-sm-inline-block">
+    <b>Version:</b> Python-3.12.4 / Django-4.2.7
   </div>
 </footer>
