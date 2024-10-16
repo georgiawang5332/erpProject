@@ -1,6 +1,8 @@
 {% extends 'dashboard/base.html' %}
-
 {% block content %}
+
+<title>列表 Gmail信箱</title>
+
 <style>
   .unread {
     font-weight: bold;
@@ -21,11 +23,6 @@
     word-wrap: break-word;
     /* 防止表格內容超出單元格 */
     white-space: nowrap;
-  }
-
-  .btn {
-    width: 100%;
-    /* 確保按鈕占滿欄位寬度 */
   }
 
   /* 20240903 add end */
@@ -94,79 +91,62 @@
             <p>Total emails: <span id="total-emails">{{ total_emails }}</span></p>
 
             <div class="table-responsive">
-              <table class="table table-striped table-hover w-100">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">狀態</th>
-                    <th scope="col">主題</th>
-                    <th scope="col">留言訊息</th>
-                    <th scope="col">來自郵件</th>
-                    <th scope="col" class="medium-column">收件者郵件帳號</th>
-                    <th scope="col" class="vertical-text">接收時間</th>
-                    <th scope="col" class="medium-column">是否已發送</th>
-                    <th scope="col" class="medium-column">資料夾</th>
-                    <th scope="col">操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for email in page_obj %}
-                  <tr id="email-{{ email.id }}" class="{% if email.is_read %}read{% else %}unread{% endif %}">
-                    <!-- <tr id="email-{{ email.id }}"> -->
-                    <th scope="row">{{email.id}}</th>
-                    <td>
-                      <span class="read-status" data-email-id="{{ email.id }}">
-                        {% if email.is_read %}已讀{% else %}未讀{% endif %}
-                      </span>
-                    </td>
-                    <td>
-                      <a href="#" class="email-link" data-email-id="{{ email.id }}">{{email.subject}}</a>
-                    </td>
-                    <td>{{email.message}}</td>
-                    <td>{{email.from_email}}</td>
-                    <td>{{email.to_email}}</td>
-                    <td>{{email.received_at}}</td>
-                    <td>{{email.is_sent}}</td>
-                    <td>{{email.folder}}</td>
-                    <td>
-                      <form action="{% url 'personnelAddBook:delete_email' email.id %}" method="post"
-                        onsubmit="return confirm('確定要刪除這封郵件嗎?');">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
-                      </form>
-                    </td> <!-- 刪除按鈕 -->
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
+              <div class="overflow">
+                <table id="example1" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">狀態</th>
+                      <th scope="col">主題</th>
+                      <th scope="col">留言訊息</th>
+                      <th scope="col">來自郵件</th>
+                      <th scope="col" class="medium-column">收件者郵件帳號</th>
+                      <th scope="col" class="vertical-text">接收時間</th>
+                      <th scope="col" class="medium-column">是否已發送</th>
+                      <th scope="col" class="medium-column">資料夾</th>
+                      <th scope="col">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for email in page_obj %}
+                    <tr id="email-{{ email.id }}" class="{% if email.is_read %}read{% else %}unread{% endif %}">
+                      <!-- <tr id="email-{{ email.id }}"> -->
+                      <th scope="row">{{email.id}}</th>
+                      <td>
+                        <span class="read-status" data-email-id="{{ email.id }}">
+                          {% if email.is_read %}已讀{% else %}未讀{% endif %}
+                        </span>
+                      </td>
+                      <td>
+                        <a href="#" class="email-link" data-email-id="{{ email.id }}">{{email.subject}}</a>
+                      </td>
+                      <td>{{email.message}}</td>
+                      <td>{{email.from_email}}</td>
+                      <td>{{email.to_email}}</td>
+                      <td>{{email.received_at}}</td>
+                      <td>{{email.is_sent}}</td>
+                      <td>{{email.folder}}</td>
+                      <td>
+                        <form action="{% url 'personnelAddBook:delete_email' email.id %}" method="post"
+                          onsubmit="return confirm('確定要刪除這封郵件嗎?');">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                        </form>
+                      </td> <!-- 刪除按鈕 -->
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div><!-- /. overflow -->
+            </div><!-- /. table-responsive -->
 
-            <div class="pagination">
-              <span class="step-links">
-                {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-              </span>
-            </div>
 
           </div><!-- /.card-body -->
         </div><!-- /.card -->
 
-
-
       </div><!-- /.container-fluid -->
-
     </div><!-- /.row -->
+
   </section><!-- /.container-fluid -->
 </div><!-- /.content-wrapper -->
 
